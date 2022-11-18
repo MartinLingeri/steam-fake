@@ -1,33 +1,60 @@
 import { useState } from 'react'
-import { Box, Heading, Image, Stack, Text } from '@chakra-ui/react'
+import { Box, Button, Heading, Image, Stack, Text } from '@chakra-ui/react'
 
 import GameBackgroundShadow from '../assets/game_page_background_shadow.png'
+import ImageSlider from './ImageSlider'
 
 export default function GameInfo() {
   const [selectedImageIndex, setSeletedImageIndex] = useState(0)
 
   const highlightImage = [
-    'https://picsum.photos/115/65',
-    'https://picsum.photos/115/65',
-    'https://picsum.photos/115/65',
+    'https://picsum.photos/600/337',
+    'https://picsum.photos/600/337',
+    'https://picsum.photos/600/337',
   ]
+
+  function selectNextImage() {
+    if (selectedImageIndex === highlightImage.length - 1) {
+      setSeletedImageIndex(0)
+    } else {
+      setSeletedImageIndex(selectedImageIndex + 1)
+    }
+  }
+
+  function selectPreviousImage() {
+    if (selectedImageIndex === 0) {
+      setSeletedImageIndex(highlightImage.length - 1)
+    } else {
+      setSeletedImageIndex(selectedImageIndex - 1)
+    }
+  }
 
   return (
     <Stack
       direction='row'
       justifyContent='space-between'
       height='445px'
-      background={`url(${GameBackgroundShadow})`}
-      backgroundPosition='bottom'
+      position='relative'
       paddingBottom='1px'
-      backgroundRepeat='no-repeat'
+      _before={{
+        content: '""',
+        position: 'absolute',
+        top: '66px',
+        width: '100%',
+        height: '100%',
+        background: `url(${GameBackgroundShadow})`,
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'bottom',
+        zIndex: 0,
+      }}
     >
-      <Stack>
+      <Stack zIndex='100'>
         <Image
           src={highlightImage[selectedImageIndex]}
           width='600px'
           height='337px'
           cursor='pointer'
+          transition='all 0.3s ease-in-out'
         ></Image>
         <Stack direction='row'>
           {highlightImage.map((thumbnail, index) => (
@@ -45,7 +72,7 @@ export default function GameInfo() {
                       position: 'absolute',
                       clipPath: 'polygon(50% 50%, 0% 100%, 100% 100%)',
                       top: '-26px',
-                      width: '30%',
+                      width: '25%',
                       height: '40%',
                       background: '#c6d4df',
                     }
@@ -58,6 +85,12 @@ export default function GameInfo() {
             </Box>
           ))}
         </Stack>
+        <ImageSlider
+          selectNextImage={selectNextImage}
+          selectPreviousImage={selectPreviousImage}
+          selectedImageIndex={selectedImageIndex}
+          imagesLength={highlightImage.length}
+        />
       </Stack>
       <Stack>
         <Image
@@ -78,7 +111,7 @@ export default function GameInfo() {
           exploración y conquista mientras grabas tu nombre en la historia de
           New Eden.
         </Text>
-        <Box marginBlock='8px !important'>
+        <Box marginTop='8px !important' marginBottom='4px !important'>
           <Heading
             textTransform='uppercase'
             color='textDarkGray'
@@ -86,6 +119,7 @@ export default function GameInfo() {
             fontWeight='400'
             textOverflow='ellipsis'
             lineHeight='16px'
+            fontFamily='Arial'
           >
             reseñas recientes:
           </Heading>
@@ -94,6 +128,7 @@ export default function GameInfo() {
             color='textDarkGray'
             fontSize='10px'
             fontWeight='400'
+            fontFamily='Arial'
             textOverflow='ellipsis'
             lineHeight='16px'
           >
@@ -105,8 +140,9 @@ export default function GameInfo() {
           color='textDarkGray'
           fontSize='10px'
           fontWeight='400'
+          fontFamily='Arial'
           textOverflow='ellipsis'
-          marginBlock='8px !important'
+          marginBlock='4px !important'
           lineHeight='16px'
         >
           fechas de lanzamiento:
@@ -117,6 +153,7 @@ export default function GameInfo() {
             color='textDarkGray'
             fontSize='10px'
             fontWeight='400'
+            fontFamily='Arial'
             textOverflow='ellipsis'
             lineHeight='16px'
           >
@@ -127,6 +164,7 @@ export default function GameInfo() {
             color='textDarkGray'
             fontSize='10px'
             fontWeight='400'
+            fontFamily='Arial'
             textOverflow='ellipsis'
             lineHeight='16px'
           >
@@ -134,14 +172,13 @@ export default function GameInfo() {
           </Heading>
         </Box>
         <Heading
-          textTransform='uppercase'
           color='textDarkGray'
-          fontSize='10px'
-          fontWeight='400'
-          textOverflow='ellipsis'
-          lineHeight='16px'
+          fontSize='12px'
+          fontWeight='normla'
+          fontFamily='Arial'
+          lineHeight='19px'
         >
-          etiquetas populares para este producto:
+          Etiquetas populares para este producto:
         </Heading>
       </Stack>
     </Stack>

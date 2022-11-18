@@ -11,6 +11,7 @@ export default function GameBanner() {
       bgColor='transparent'
       border='2px solid #ddd'
       margin='-4px 0 !important'
+      zIndex="100"
     >
       <Box>GameBanner</Box>
     </Stack>

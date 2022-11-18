@@ -8,10 +8,15 @@ export default function Title() {
   ]
 
   return (
-    <Stack position='relative'>
+    <Stack position='relative' zIndex='100'>
       <Stack direction='row'>
         {breadcrumbs.map((breadcrumb, index) => (
-          <Stack direction='row' gap='0' key={index}>
+          <Stack
+            direction='row'
+            gap='0'
+            marginLeft='4px !important'
+            key={index}
+          >
             <Heading
               color='textGray'
               fontSize='12px'
@@ -27,6 +32,7 @@ export default function Title() {
                 fontSize='12px'
                 fontWeight='400'
                 opacity='0.6'
+                marginLeft='4px !important'
               >
                 {' '}
                 {' >'}
@@ -49,7 +55,7 @@ export default function Title() {
           lineHeight='32px'
           textOverflow='ellipsis'
         >
-          Eve
+          EVE Online
         </Heading>
         <Button
           width='161px'

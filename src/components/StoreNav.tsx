@@ -23,6 +23,7 @@ export default function StoreNav() {
       justifyContent='space-between'
       marginTop='32px'
       boxShadow='storeNav.shadow'
+      zIndex="100"
     >
       <Stack direction='row' color='text' whiteSpace='nowrap'>
         {categories.map((category, index) => (
