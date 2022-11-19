@@ -16,7 +16,9 @@ const theme = extendTheme({
     text: '#dbe2e6',
     textBlue: '#54a5d4',
     textGray: '#8f98a0',
-    textDarkGray: "#556772",
+    textDarkGray: '#556772',
+    textPurchaseButton: '#d2efa9',
+    textPurchasePrice: '#c6d4df',
     storeNav: {
       font: 'Arial',
       textShadow: '0px 2px 3px rgb(0 0 0 / 30%)',

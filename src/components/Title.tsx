@@ -14,7 +14,7 @@ export default function Title() {
           <Stack
             direction='row'
             gap='0'
-            marginLeft='4px !important'
+            marginLeft={index === 0 ? '0' : '4px !important'}
             key={index}
           >
             <Heading

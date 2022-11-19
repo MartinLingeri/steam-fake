@@ -1,5 +1,7 @@
 import { useState } from 'react'
-import { Box, Button, Stack } from '@chakra-ui/react'
+import { Box, Stack } from '@chakra-ui/react'
+
+import './App.css'
 
 import Navbar from './components/Navbar'
 import StoreNav from './components/StoreNav'
@@ -10,6 +12,7 @@ import GameInfo from './components/GameInfo'
 import GameFeedbackButtons from './components/GameFeedbackButtons'
 
 import GameBackgroundShadow from './assets/game_page_background_shadow.png'
+import PageContent from './components/PageContent'
 
 function App() {
   const [bgImage, setBgImage] = useState('https://picsum.photos/1438/810')
@@ -32,19 +35,21 @@ function App() {
           backgroundImage: `url(${bgImage})`,
           backgroundPosition: 'center top',
           backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
           filter:
-            'sepia(100%) hue-rotate(190deg) saturate(400%) brightness(20%) opacity(15%)',
-          boxShadow: 'inset 0px -60px 50px 20px #78bbff',
+            'sepia(100%) hue-rotate(190deg) saturate(400%) brightness(20%) opacity(20%)',
+          boxShadow: 'inset 0px -60px 50px 100px #78bbff',
           zIndex: 0,
         }}
         _after={{
           content: '""',
           position: 'absolute',
-          top: '562px',
+          top: '172px;',
           width: '100%',
           height: '100%',
           backgroundImage: `url(${GameBackgroundShadow})`,
           backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center',
         }}
       >
         <Stack width='940px' gap='16px'>
@@ -53,6 +58,7 @@ function App() {
           <GameBanner />
           <GameInfo />
           <GameFeedbackButtons />
+          <PageContent />
         </Stack>
       </Stack>
       <Scrollbar />

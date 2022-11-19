@@ -1,6 +1,7 @@
 import { Box, Button, Stack } from '@chakra-ui/react'
 
 import Btn_arrow_down_padded from '../assets/btn_arrow_down_padded.png'
+import ArrowIcon from '../assets/icons_16.png'
 
 export default function GameFeedbackButtons() {
   return (
@@ -12,7 +13,7 @@ export default function GameFeedbackButtons() {
       padding='0 16px'
       margin='0 !important'
     >
-      <Stack direction='row' alignItems='center' display='inline-block'>
+      <Box display='flex' gap='2px' flexDirection='row' alignItems='center'>
         <Button
           padding='16px'
           height='30px'
@@ -62,25 +63,29 @@ export default function GameFeedbackButtons() {
           Ignorar
         </Button>
         <Box
-          display='inline-block'
+          display='flex'
+          flexDirection='row'
+          alignItems='center'
+          justifyContent='center'
           width='20px'
-          height='30px'
+          height='32px'
           borderRadius='2px'
           background='title.buttonBg'
           cursor='pointer'
-          _hover={{
-            background: 'lightHover',
+          _hover={{ backgroundColor: 'primary.600' }}
+          _before={{
+            content: '""',
+            backgroundImage: `url(${Btn_arrow_down_padded})`,
+            backgroundRepeat: 'no-repeat',
+            width: '20px',
+            height: '14px',
           }}
-        >
-          <Box
-            backgroundImage={`url(${Btn_arrow_down_padded})`}
-            backgroundRepeat='no-repeat'
-            width='100%'
-            height='100%'
-          ></Box>
-        </Box>
-      </Stack>
+        ></Box>
+      </Box>
       <Button
+        display='flex'
+        flexDirection='row'
+        alignItems='center'
         padding='16px'
         height='30px'
         fontSize='15px'
@@ -94,7 +99,14 @@ export default function GameFeedbackButtons() {
           color: 'text',
         }}
       >
-        Ver tu lista
+        <Box>Ver tu lista</Box>
+        <Box
+          marginLeft='12px'
+          backgroundImage={`url(${ArrowIcon})`}
+          width='16px'
+          height='16px'
+          backgroundPosition='-176px 0px'
+        ></Box>
       </Button>
     </Stack>
   )
