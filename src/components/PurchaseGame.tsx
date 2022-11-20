@@ -62,7 +62,7 @@ export default function PurchaseGame() {
           background='linear-gradient( to right, #75b022 5%, #588a1b 95%)'
           textShadow='1px 1px 0px rgb(0 0 0 / 30%)'
           borderRadius='2px'
-          marginRight='2px'
+          marginRight='3px'
           color='textPurchaseButton'
           height='30px'
           _hover={{ filter: 'brightness(1.2)' }}

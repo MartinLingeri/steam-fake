@@ -2,7 +2,7 @@
   height: 12px;
   width: 14px;
   background: transparent;
-  z-index: 12;
+  z-index: 400;
   overflow: visible;
 }
 ::-webkit-scrollbar-corner {
@@ -12,7 +12,7 @@
   width: 10px;
   background-color: #434953;
   border-radius: 10px;
-  z-index: 12;
+  z-index: 200;
   border: 4px solid rgba(0, 0, 0, 0);
   background-clip: padding-box;
   transition: background-color 0.32s ease-in-out;
@@ -20,6 +20,11 @@
   min-height: 32px;
   min-width: 32px;
 }
+
+::-webkit-scrollbar-thumb:hover {
+  width: 20px;
+}
+
 ::selection {
   background: #54a5d4;
   text-shadow: 1px 1px 2px #000000aa;

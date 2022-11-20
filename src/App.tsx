@@ -44,12 +44,11 @@ function App() {
         _after={{
           content: '""',
           position: 'absolute',
-          top: '172px;',
+          top: '564px;',
           width: '100%',
           height: '100%',
           backgroundImage: `url(${GameBackgroundShadow})`,
           backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'center',
         }}
       >
         <Stack width='940px' gap='16px'>

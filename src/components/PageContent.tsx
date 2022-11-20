@@ -7,7 +7,7 @@ import PurchaseGame from './PurchaseGame'
 export default function PageContent() {
   return (
     <Box>
-      <Box float='left' width='616px' marginTop='32px'>
+      <Box float='left' width='616px' marginTop='32px' marginBottom="32px">
         <PurchaseGame />
       </Box>
       <Box float='right' width='308px' marginTop='32px' marginLeft='14px'>
