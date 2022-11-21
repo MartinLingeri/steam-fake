@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Box, Heading, Image, Input, Link, Stack, Text } from '@chakra-ui/react'
+import { Box, Heading, Image, Link, Stack, Text } from '@chakra-ui/react'
 
 import GameBackgroundShadow from '../assets/game_page_background_shadow.png'
 import ImageSlider from './ImageSlider'
@@ -159,14 +159,6 @@ export default function GameInfo() {
           >
             fechas de lanzamiento:
           </Heading>
-          <Input
-            width='94px'
-            height='16px'
-            size='sm'
-            type='date'
-            color='textGray'
-            variant='unstyled'
-          ></Input>
         </Stack>
         <Box marginBlock='8px !important'>
           <Stack direction='row' alignItems='center'>
