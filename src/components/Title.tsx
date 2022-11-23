@@ -1,10 +1,13 @@
 import { Box, Button, Heading, Stack } from '@chakra-ui/react'
 
+import { useGlobalStore } from '../store'
+
 export default function Title() {
+  const { gameTitle } = useGlobalStore()
   const breadcrumbs = [
     'Todo los juegos',
     'Multijugador masivo juegos',
-    'EVE online',
+    gameTitle,
   ]
 
   return (
@@ -55,7 +58,7 @@ export default function Title() {
           lineHeight='32px'
           textOverflow='ellipsis'
         >
-          EVE Online
+          {gameTitle}
         </Heading>
         <Button
           width='161px'

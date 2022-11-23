@@ -1,10 +1,14 @@
 import { Box, Button, Heading, Image, Stack, Text } from '@chakra-ui/react'
 
+import { useGlobalStore } from '../store'
+
 import IconPlatformWindows from '../assets/icon_platform_win.png'
 import IconPlatformMac from '../assets/icon_platform_mac.png'
 import IconPlatformLinux from '../assets/icon_platform_linux.png'
 
 export default function PurchaseGame() {
+  const { gameTitle, gamePrice, gamePlatforms } = useGlobalStore()
+
   return (
     <Box
       background='linear-gradient( -60deg, rgba(226,244,255,0.3) 5%,rgba(84, 107, 115, 0.3) 95%)'
@@ -22,7 +26,7 @@ export default function PurchaseGame() {
           fontSize='21px'
           color='white'
         >
-          Comprar EVE Online
+          Comprar {gameTitle}
         </Heading>
         <Box
           display='flex'
@@ -30,9 +34,15 @@ export default function PurchaseGame() {
           alignItems='center'
           justifyContent='center'
         >
-          <Image src={IconPlatformWindows} />
-          <Image src={IconPlatformMac} />
-          <Image src={IconPlatformLinux} />
+          {gamePlatforms.find(platform => platform === 'windows') && (
+            <Image src={IconPlatformWindows} />
+          )}
+          {gamePlatforms.find(platform => platform === 'mac') && (
+            <Image src={IconPlatformMac} />
+          )}
+          {gamePlatforms.find(platform => platform === 'linux') && (
+            <Image src={IconPlatformLinux} />
+          )}
         </Box>
       </Stack>
       <Box
@@ -53,7 +63,7 @@ export default function PurchaseGame() {
           paddingInline='12px'
           whiteSpace='nowrap'
         >
-          ARS$ 4999,99
+          ARS$ {gamePrice}
         </Text>
         <Button
           fontSize='15px'

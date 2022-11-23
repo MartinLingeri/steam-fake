@@ -1,14 +1,14 @@
 import { useState } from 'react'
 import { Box, Heading, Image, Link, Stack, Text } from '@chakra-ui/react'
 
+import { useGlobalStore } from '../store'
+
 import GameBackgroundShadow from '../assets/game_page_background_shadow.png'
 import ImageSlider from './ImageSlider'
 
 export default function GameInfo() {
+  const { gameDescription, gameDevelopers, gamePublishers } = useGlobalStore()
   const [selectedImageIndex, setSeletedImageIndex] = useState(0)
-
-  const [developers, setDevelopers] = useState(['CCP'])
-  const [publishers, setPublishers] = useState(['CCP'])
   const [tags, setTags] = useState(['Action', 'Adventure', 'RPG', 'Sci-Fi'])
 
   const highlightImage = [
@@ -96,7 +96,7 @@ export default function GameInfo() {
           imagesLength={highlightImage.length}
         />
       </Stack>
-      <Stack zIndex='100'>
+      <Stack zIndex='100' width='324px'>
         <Image
           src='https://picsum.photos/324/151'
           width='324px'
@@ -108,14 +108,11 @@ export default function GameInfo() {
           color='text'
           paddingRight='16px'
           width='324px'
+          height='108px'
           fontSize='13px'
           lineHeight='18px'
         >
-          EVE Online es un juego donde la historia la escriben los jugadores, en
-          un universo de una belleza, profundidad y oportunidades sin parangón.
-          Únete con tu nave y embárcate en una aventura de industria,
-          exploración y conquista mientras grabas tu nombre en la historia de
-          New Eden.
+          {gameDescription}
         </Text>
         <Box marginTop='8px !important' marginBottom='4px !important'>
           <Stack direction='row' alignItems='center'>
@@ -161,59 +158,65 @@ export default function GameInfo() {
           </Heading>
         </Stack>
         <Box marginBlock='8px !important'>
-          <Stack direction='row' alignItems='center'>
+          <Stack direction='row' alignItems='center' overflow='hidden'>
             <Heading
               textTransform='uppercase'
               color='textDarkGray'
               fontSize='10px'
               fontWeight='400'
               fontFamily='Arial'
-              textOverflow='ellipsis'
               lineHeight='16px'
               minWidth='94px'
             >
               desarrollador:
             </Heading>
-            {developers.map((developer, index) => (
+            {gameDevelopers.map((developer, index) => (
               <Link
                 key={index}
                 overflow='hidden'
                 whiteSpace='nowrap'
-                textOverflow='ellipsis'
+                textOverflow={
+                  index !== gameDevelopers.length - 1 ? 'clip' : 'ellipsis'
+                }
+                flex={index !== gameDevelopers.length - 1 ? 'unset' : 1}
                 color='primary.100'
                 textDecoration='none'
                 fontSize='12px'
                 _hover={{ color: 'white' }}
               >
                 {developer}
+                {index !== gameDevelopers.length - 1 && ', '}
               </Link>
             ))}
           </Stack>
-          <Stack direction='row' alignItems='center'>
+          <Stack direction='row' alignItems='center' overflow='hidden'>
             <Heading
               textTransform='uppercase'
               color='textDarkGray'
               fontSize='10px'
               fontWeight='400'
               fontFamily='Arial'
-              textOverflow='ellipsis'
               lineHeight='16px'
               minWidth='94px'
             >
               editor:
             </Heading>
-            {publishers.map((publisher, index) => (
+            {gamePublishers.map((publisher, index) => (
               <Link
                 key={index}
                 overflow='hidden'
                 whiteSpace='nowrap'
-                textOverflow='ellipsis'
+                textOverflow={
+                  index !== gameDevelopers.length - 1 ? 'clip' : 'ellipsis'
+                }
+                flex={index !== gameDevelopers.length - 1 ? 'unset' : 1}
                 color='primary.100'
                 textDecoration='none'
                 fontSize='12px'
                 _hover={{ color: 'white' }}
               >
                 {publisher}
+                {index !== gamePublishers.length - 1 && ', '}
               </Link>
             ))}
           </Stack>
@@ -252,6 +255,26 @@ export default function GameInfo() {
                 {tag}
               </Box>
             ))}
+            <Box
+              display='inline-block'
+              height='19px'
+              fontSize='11px'
+              color='primary.100'
+              borderRadius='2px'
+              background='title.buttonBg'
+              fontWeight='400'
+              cursor='pointer'
+              paddingInline='8px'
+              paddingBlock='1px'
+              marginRight='2px'
+              textAlign='center'
+              _hover={{
+                background: 'lightHover',
+                color: 'text',
+              }}
+            >
+              {' + '}
+            </Box>
           </Box>
         </Box>
       </Stack>

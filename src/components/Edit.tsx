@@ -11,12 +11,13 @@ import {
   DrawerOverlay,
   Heading,
   Input,
-  Select,
   Stack,
   Textarea,
 } from '@chakra-ui/react'
 
 import { gameFeatures } from './gameFeatures'
+
+import { useGlobalStore } from '../store'
 
 export default function Edit({
   isOpen,
@@ -27,6 +28,20 @@ export default function Edit({
   onClose: () => void
   btnRef: React.RefObject<HTMLButtonElement>
 }) {
+  const {
+    gameTitle,
+    setGameTitle,
+    gameDescription,
+    setGameDescription,
+    gameDevelopers,
+    addGameDevelopers,
+    removeGameDevelopers,
+    gamePublishers,
+    addGamePublishers,
+    removeGamePublishers,
+    gamePrice,
+    setGamePrice,
+  } = useGlobalStore()
   const [multiSelectOptions, setMultiSelectOptions] = useState([
     'Windows',
     'Mac',
@@ -66,7 +81,13 @@ export default function Edit({
           gap='12px'
         >
           <Heading fontSize='16px'>Game title</Heading>
-          <Input type='text' paddingBlock='16px' placeholder='Game title...' />
+          <Input
+            type='text'
+            value={gameTitle}
+            paddingBlock='16px'
+            placeholder='Game title...'
+            onChange={e => setGameTitle(e.target.value)}
+          />
           <Heading fontSize='16px'>Game backgroun image</Heading>
           <Input
             type='file'
@@ -89,7 +110,12 @@ export default function Edit({
             paddingBottom='32px'
           />
           <Heading fontSize='16px'>Game description</Heading>
-          <Textarea resize='none' placeholder='Game title...' />
+          <Textarea
+            resize='none'
+            value={gameDescription}
+            placeholder='Game title...'
+            onChange={e => setGameDescription(e.target.value)}
+          />
           <Heading fontSize='16px'>Game release date</Heading>
           <Input
             type='date'
@@ -113,7 +139,13 @@ export default function Edit({
             <Checkbox colorScheme='blue'>Linux</Checkbox>
           </Stack>
           <Heading fontSize='16px'>Price</Heading>
-          <Input type='number' paddingBlock='16px' placeholder='Price...' />
+          <Input
+            type='number'
+            value={gamePrice}
+            paddingBlock='16px'
+            placeholder='Price...'
+            onChange={e => setGamePrice(Number(e.target.value))}
+          />
           <Heading fontSize='16px'>Features</Heading>
           {Object.keys(gameFeatures).map(key => (
             <Checkbox key={key}>
