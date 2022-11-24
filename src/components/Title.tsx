@@ -1,14 +1,12 @@
 import { Box, Button, Heading, Stack } from '@chakra-ui/react'
 
+import { useTranslation } from 'react-i18next'
 import { useGlobalStore } from '../store'
 
 export default function Title() {
+  const { t } = useTranslation()
   const { gameTitle } = useGlobalStore()
-  const breadcrumbs = [
-    'Todo los juegos',
-    'Multijugador masivo juegos',
-    gameTitle,
-  ]
+  const breadcrumbs = [t('allGames'), 'Multijugador masivo juegos', gameTitle]
 
   return (
     <Stack position='relative' zIndex='100'>
@@ -61,7 +59,7 @@ export default function Title() {
           {gameTitle}
         </Heading>
         <Button
-          width='161px'
+          width='auto'
           height='30px'
           fontSize='15px'
           lineHeight='30px'
@@ -74,7 +72,7 @@ export default function Title() {
             color: 'text',
           }}
         >
-          Punto de encuentro
+          {t('communityHub')}
         </Button>
       </Stack>
     </Stack>

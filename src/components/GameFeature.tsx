@@ -1,8 +1,11 @@
 import { Box } from '@chakra-ui/react'
 
+import { useTranslation } from 'react-i18next'
 import { gameFeatures } from './gameFeatures'
 
 export default function GameFeature({ feature }: { feature: string }) {
+  const { t } = useTranslation()
+
   return (
     <Box
       role='group'
@@ -37,7 +40,7 @@ export default function GameFeature({ feature }: { feature: string }) {
         backgroundColor='rgba( 103, 193, 245, 0.1 )'
         _groupHover={{ backgroundColor: 'primary.50', color: 'white' }}
       >
-        {gameFeatures[feature as keyof typeof gameFeatures].alt}
+        {t(`features.${feature}`)}
       </Box>
     </Box>
   )

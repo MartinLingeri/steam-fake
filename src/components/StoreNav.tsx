@@ -1,15 +1,18 @@
 import { Box, Heading, Image, Input, Stack } from '@chakra-ui/react'
 
+import { useTranslation } from 'react-i18next'
+
 import SearchIcon from '../assets/search_icon_btn.png'
 
 export default function StoreNav() {
+  const { t } = useTranslation()
   const categories = [
-    'Tu tienda',
-    'Nuevo y destacable',
-    'Categorias',
-    'Tienda de puntos',
-    'Noticias',
-    'Laboatorios',
+    t('nav.yourStore'),
+    t('nav.newNoteworthy'),
+    t('nav.categories'),
+    t('nav.pointsShop'),
+    t('nav.news'),
+    t('nav.labs'),
   ]
 
   return (
@@ -23,7 +26,7 @@ export default function StoreNav() {
       justifyContent='space-between'
       marginTop='32px'
       boxShadow='storeNav.shadow'
-      zIndex="100"
+      zIndex='100'
     >
       <Stack direction='row' color='text' whiteSpace='nowrap'>
         {categories.map((category, index) => (
@@ -64,8 +67,12 @@ export default function StoreNav() {
           width='202px'
           height='29px'
           fontSize='14px'
-          placeholder='buscar'
-          _placeholder={{ color: '#0e1c25' }}
+          placeholder={t('nav.searchPlaceholder')!}
+          _placeholder={{
+            color: '#0e1c25',
+            textTransform: 'lowercase',
+            fontStyle: 'oblique',
+          }}
           _hover={{ border: '1px solid #54a5d4' }}
         ></Input>
         <Image

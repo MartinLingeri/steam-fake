@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import { Box, Heading, Image, Link, Stack, Text } from '@chakra-ui/react'
 
+import { useTranslation } from 'react-i18next'
 import { useGlobalStore } from '../store'
 
 import GameBackgroundShadow from '../assets/game_page_background_shadow.png'
 import ImageSlider from './ImageSlider'
 
 export default function GameInfo() {
+  const { t } = useTranslation()
   const { gameDescription, gameDevelopers, gamePublishers } = useGlobalStore()
   const [selectedImageIndex, setSeletedImageIndex] = useState(0)
   const [tags, setTags] = useState(['Action', 'Adventure', 'RPG', 'Sci-Fi'])
@@ -125,7 +127,7 @@ export default function GameInfo() {
               lineHeight='16px'
               fontFamily='Arial'
             >
-              reseñas recientes:
+              {t('recentReviews')}:
             </Heading>
           </Stack>
           <Stack direction='row' alignItems='center'>
@@ -138,7 +140,7 @@ export default function GameInfo() {
               textOverflow='ellipsis'
               lineHeight='16px'
             >
-              reseñas generales:
+              {t('allReviews')}:
             </Heading>
           </Stack>
         </Box>
@@ -154,7 +156,7 @@ export default function GameInfo() {
             lineHeight='16px'
             whiteSpace='nowrap'
           >
-            fechas de lanzamiento:
+            {t('releaseDate')}:
           </Heading>
         </Stack>
         <Box marginBlock='8px !important'>
@@ -168,7 +170,7 @@ export default function GameInfo() {
               lineHeight='16px'
               minWidth='94px'
             >
-              desarrollador:
+              {t('developer')}:
             </Heading>
             {gameDevelopers.map((developer, index) => (
               <Link
@@ -199,7 +201,7 @@ export default function GameInfo() {
               lineHeight='16px'
               minWidth='94px'
             >
-              editor:
+              {t('publisher')}:
             </Heading>
             {gamePublishers.map((publisher, index) => (
               <Link
@@ -229,7 +231,7 @@ export default function GameInfo() {
             fontFamily='Arial'
             lineHeight='19px'
           >
-            Etiquetas populares para este producto:
+            {t('tags')}:
           </Heading>
           <Box display='flex'>
             {tags.map((tag, index) => (

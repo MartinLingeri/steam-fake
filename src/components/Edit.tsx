@@ -11,13 +11,16 @@ import {
   DrawerOverlay,
   Heading,
   Input,
+  Select,
   Stack,
   Textarea,
 } from '@chakra-ui/react'
 
-import { gameFeatures } from './gameFeatures'
+import { gameFeatures as GF } from './gameFeatures'
 
 import { useGlobalStore } from '../store'
+import { langs } from '../i18n'
+import { useTranslation } from 'react-i18next'
 
 export default function Edit({
   isOpen,
@@ -28,6 +31,7 @@ export default function Edit({
   onClose: () => void
   btnRef: React.RefObject<HTMLButtonElement>
 }) {
+  const { t, i18n } = useTranslation()
   const {
     gameTitle,
     setGameTitle,
@@ -39,8 +43,13 @@ export default function Edit({
     gamePublishers,
     addGamePublishers,
     removeGamePublishers,
+    gamePlatforms,
+    setGamePlatforms,
     gamePrice,
     setGamePrice,
+    gameFeatures,
+    addGameFeatures,
+    removeGameFeatures,
   } = useGlobalStore()
   const [multiSelectOptions, setMultiSelectOptions] = useState([
     'Windows',
@@ -70,7 +79,7 @@ export default function Edit({
             size='xl'
           />
           <DrawerHeader marginLeft='0 !important' whiteSpace='nowrap'>
-            Make your edits
+            {t('editTitle')}
           </DrawerHeader>
         </Stack>
 
@@ -80,7 +89,26 @@ export default function Edit({
           flexDirection='column'
           gap='12px'
         >
-          <Heading fontSize='16px'>Game title</Heading>
+          <Stack direction='row' justifyContent='space-between'>
+            <Heading display='inline-block' fontSize='24px'>
+              {t('language')}:
+            </Heading>
+            <Select
+              bgColor='primary.100'
+              color='black'
+              width='auto'
+              display='inline-block'
+              value={i18n.language}
+              onChange={e => i18n.changeLanguage(e.target.value)}
+            >
+              {Object.keys(langs).map(lang => (
+                <option key={lang} value={lang}>
+                  {langs[lang as keyof typeof langs].nativeName}
+                </option>
+              ))}
+            </Select>
+          </Stack>
+          <Heading fontSize='16px'>{t('gameTitle')}</Heading>
           <Input
             type='text'
             value={gameTitle}
@@ -88,35 +116,39 @@ export default function Edit({
             placeholder='Game title...'
             onChange={e => setGameTitle(e.target.value)}
           />
-          <Heading fontSize='16px'>Game backgroun image</Heading>
+          <Heading fontSize='16px'>{t('gameBackgroundImage')}</Heading>
           <Input
             type='file'
             variant='unstyled'
             borderRadius='0'
             paddingBottom='32px'
           />
-          <Heading fontSize='16px'>Game banner (940 x 137) (optional)</Heading>
+          <Heading fontSize='16px'>
+            {t('gameBanner', { res: '(940 x 137)' })}
+          </Heading>
           <Input
             type='file'
             variant='unstyled'
             borderRadius='0'
             paddingBottom='32px'
           />
-          <Heading fontSize='16px'>Game cover (324 x 151)</Heading>
+          <Heading fontSize='16px'>
+            {t('gameCover', { res: '(324 x 151)' })}
+          </Heading>
           <Input
             type='file'
             variant='unstyled'
             borderRadius='0'
             paddingBottom='32px'
           />
-          <Heading fontSize='16px'>Game description</Heading>
+          <Heading fontSize='16px'>{t('gameDescription')}</Heading>
           <Textarea
             resize='none'
             value={gameDescription}
             placeholder='Game title...'
             onChange={e => setGameDescription(e.target.value)}
           />
-          <Heading fontSize='16px'>Game release date</Heading>
+          <Heading fontSize='16px'>{t('gameReleaseDate')}</Heading>
           <Input
             type='date'
             variant='flushed'
@@ -126,19 +158,54 @@ export default function Edit({
               },
             }}
           />
-          <Heading fontSize='16px'>Developer</Heading>
+          <Heading fontSize='16px'>{t('gameDeveloper')}</Heading>
           <Input type='text' paddingBlock='16px' placeholder='Developer...' />
-          <Heading fontSize='16px'>Publisher</Heading>
+          <Heading fontSize='16px'>{t('gamePublisher')}</Heading>
           <Input type='text' paddingBlock='16px' placeholder='Publisher...' />
-          <Heading fontSize='16px'>Platforms</Heading>
+          <Heading fontSize='16px'>{t('gamePlatforms')}</Heading>
           <Stack direction='row'>
-            <Checkbox colorScheme='blue' defaultChecked>
+            <Checkbox
+              colorScheme='blue'
+              isChecked={gamePlatforms[0]}
+              onChange={e =>
+                setGamePlatforms([
+                  e.target.checked,
+                  gamePlatforms[1],
+                  gamePlatforms[2],
+                ])
+              }
+              defaultChecked
+            >
               Windows
             </Checkbox>
-            <Checkbox colorScheme='blue'>Mac</Checkbox>
-            <Checkbox colorScheme='blue'>Linux</Checkbox>
+            <Checkbox
+              colorScheme='blue'
+              isChecked={gamePlatforms[1]}
+              onChange={e =>
+                setGamePlatforms([
+                  gamePlatforms[0],
+                  e.target.checked,
+                  gamePlatforms[2],
+                ])
+              }
+            >
+              Mac
+            </Checkbox>
+            <Checkbox
+              colorScheme='blue'
+              isChecked={gamePlatforms[2]}
+              onChange={e =>
+                setGamePlatforms([
+                  gamePlatforms[0],
+                  gamePlatforms[1],
+                  e.target.checked,
+                ])
+              }
+            >
+              Linux
+            </Checkbox>
           </Stack>
-          <Heading fontSize='16px'>Price</Heading>
+          <Heading fontSize='16px'>{t('gamePrice')}</Heading>
           <Input
             type='number'
             value={gamePrice}
@@ -147,16 +214,26 @@ export default function Edit({
             onChange={e => setGamePrice(Number(e.target.value))}
           />
           <Heading fontSize='16px'>Features</Heading>
-          {Object.keys(gameFeatures).map(key => (
-            <Checkbox key={key}>
-              {gameFeatures[key as keyof typeof gameFeatures].alt}
+          {Object.keys(GF).map(key => (
+            <Checkbox
+              key={key}
+              isChecked={gameFeatures.has(key)}
+              onChange={e => {
+                if (e.target.checked) {
+                  addGameFeatures(key)
+                } else {
+                  removeGameFeatures(key)
+                }
+              }}
+            >
+              {t(`features.${key}`)}
             </Checkbox>
           ))}
         </DrawerBody>
 
         <DrawerFooter>
           <Button colorScheme='blue' onClick={onClose}>
-            Done
+            {t('done')}
           </Button>
         </DrawerFooter>
       </DrawerContent>

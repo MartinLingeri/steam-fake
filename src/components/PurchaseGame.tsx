@@ -1,5 +1,6 @@
 import { Box, Button, Heading, Image, Stack, Text } from '@chakra-ui/react'
 
+import { useTranslation } from 'react-i18next'
 import { useGlobalStore } from '../store'
 
 import IconPlatformWindows from '../assets/icon_platform_win.png'
@@ -7,6 +8,7 @@ import IconPlatformMac from '../assets/icon_platform_mac.png'
 import IconPlatformLinux from '../assets/icon_platform_linux.png'
 
 export default function PurchaseGame() {
+  const { t } = useTranslation()
   const { gameTitle, gamePrice, gamePlatforms } = useGlobalStore()
 
   return (
@@ -26,7 +28,7 @@ export default function PurchaseGame() {
           fontSize='21px'
           color='white'
         >
-          Comprar {gameTitle}
+          {t('buy', { gameTitle: gameTitle })}
         </Heading>
         <Box
           display='flex'
@@ -34,13 +36,13 @@ export default function PurchaseGame() {
           alignItems='center'
           justifyContent='center'
         >
-          {gamePlatforms.find(platform => platform === 'windows') && (
+          {gamePlatforms[0] && (
             <Image src={IconPlatformWindows} />
           )}
-          {gamePlatforms.find(platform => platform === 'mac') && (
+          {gamePlatforms[1] && (
             <Image src={IconPlatformMac} />
           )}
-          {gamePlatforms.find(platform => platform === 'linux') && (
+          {gamePlatforms[2] && (
             <Image src={IconPlatformLinux} />
           )}
         </Box>
@@ -63,7 +65,11 @@ export default function PurchaseGame() {
           paddingInline='12px'
           whiteSpace='nowrap'
         >
-          ARS$ {gamePrice}
+          {gamePrice?.toLocaleString('es-AR', {
+            style: 'currency',
+            currency: 'ARS',
+            currencyDisplay: 'code',
+          })}
         </Text>
         <Button
           fontSize='15px'
@@ -77,7 +83,7 @@ export default function PurchaseGame() {
           height='30px'
           _hover={{ filter: 'brightness(1.2)' }}
         >
-          Añadir al carro
+          {t('addToCart')}
         </Button>
       </Box>
     </Box>

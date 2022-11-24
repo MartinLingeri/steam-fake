@@ -1,3 +1,4 @@
+import { gameFeatures } from './components/gameFeatures'
 import create from 'zustand'
 
 type State = {
@@ -24,10 +25,9 @@ type State = {
   gamePublishers: Array<string>
   addGamePublishers: (publisher: string) => void
   removeGamePublishers: (publisher: string) => void
-  gamePlatforms: Array<string>
-  addGamePlatforms: (platform: string) => void
-  removeGamePlatforms: (platform: string) => void
-  gameFeatures: Array<string>
+  gamePlatforms: Array<boolean>
+  setGamePlatforms: (platform: Array<boolean>) => void
+  gameFeatures: Set<string>
   addGameFeatures: (feature: string) => void
   removeGameFeatures: (feature: string) => void
   gameTags: Array<string>
@@ -73,20 +73,18 @@ export const useGlobalStore = create<State>(set => ({
     set(state => ({
       gamePublishers: state.gamePublishers.filter(p => p !== publisher),
     })),
-  gamePlatforms: ['windows'],
-  addGamePlatforms: (platform: string) =>
-    set(state => ({ gamePlatforms: [...state.gamePlatforms, platform] })),
-  removeGamePlatforms: (platform: string) =>
-    set(state => ({
-      gamePlatforms: state.gamePlatforms.filter(p => p !== platform),
-    })),
-  gameFeatures: [],
+  gamePlatforms: [true, false, false],
+  setGamePlatforms: (platform: Array<boolean>) =>
+    set({ gamePlatforms: platform }),
+  gameFeatures: new Set(),
   addGameFeatures: (feature: string) =>
-    set(state => ({ gameFeatures: [...state.gameFeatures, feature] })),
+    set(state => ({ gameFeatures: { ...state.gameFeatures, feature } })),
   removeGameFeatures: (feature: string) =>
-    set(state => ({
-      gameFeatures: state.gameFeatures.filter(f => f !== feature),
-    })),
+    set(state => {
+      const newFeatures = new Set(state.gameFeatures)
+      newFeatures.delete(feature)
+      return { gameFeatures: newFeatures }
+    }),
   gameTags: [],
   addGameTags: (tag: string) =>
     set(state => ({ gameTags: [...state.gameTags, tag] })),

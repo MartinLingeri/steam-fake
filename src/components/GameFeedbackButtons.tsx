@@ -1,9 +1,12 @@
 import { Box, Button, Stack } from '@chakra-ui/react'
 
+import { useTranslation } from 'react-i18next'
+
 import Btn_arrow_down_padded from '../assets/btn_arrow_down_padded.png'
 import ArrowIcon from '../assets/icons_16.png'
 
 export default function GameFeedbackButtons() {
+  const { t } = useTranslation()
   return (
     <Stack
       direction='row'
@@ -28,7 +31,7 @@ export default function GameFeedbackButtons() {
             color: 'text',
           }}
         >
-          Agregar a la lista de deseados
+          {t('feedback.addToWishlist')}
         </Button>
         <Button
           padding='16px'
@@ -44,7 +47,7 @@ export default function GameFeedbackButtons() {
             color: 'text',
           }}
         >
-          Seguir
+          {t('feedback.follow')}
         </Button>
         <Button
           padding='16px'
@@ -60,7 +63,7 @@ export default function GameFeedbackButtons() {
             color: 'text',
           }}
         >
-          Ignorar
+          {t('feedback.ignore')}
         </Button>
         <Box
           display='flex'
@@ -99,7 +102,7 @@ export default function GameFeedbackButtons() {
           color: 'text',
         }}
       >
-        <Box>Ver tu lista</Box>
+        <Box>{t('feedback.seeYourList')}</Box>
         <Box
           marginLeft='12px'
           backgroundImage={`url(${ArrowIcon})`}

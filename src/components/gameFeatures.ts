@@ -9,15 +9,15 @@ import IcoSinglePlayer from '../assets/gameFeaturesIcons/ico_singlePlayer.png'
 import IcoMultiPlayer from '../assets/gameFeaturesIcons/ico_multiPlayer.png'
 
 export const gameFeatures = {
-  achievements: { icon: IcoAchievements, alt: 'Logros de Steam' },
-  cart: { icon: IcoCart, alt: 'Compras dentro de la aplicacion' },
-  cards: { icon: IcoCards, alt: 'Cromos de Steam' },
-  cloud: { icon: IcoCloud, alt: 'Steam Cloud' },
-  controller: { icon: IcoController, alt: 'Compat. total con mando' },
-  coopOnline: { icon: IcoCoop, alt: 'Cooperativo en Linea' },
-  coopLan: { icon: IcoCoop, alt: 'Cooperativo en LAN' },
-  coopScreenSplit: { icon: IcoCoop, alt: 'Coop a pantalla partida' },
-  remotePlay: { icon: IcoRemotePlay, alt: 'Jugar en cualquier lugar' },
-  singlePlayer: { icon: IcoSinglePlayer, alt: 'Juego para un jugador' },
-  multiPlayer: { icon: IcoMultiPlayer, alt: 'Juego para varios jugadores' },
+  achievements: { icon: IcoAchievements },
+  cart: { icon: IcoCart },
+  cards: { icon: IcoCards },
+  steamCloud: { icon: IcoCloud },
+  controller: { icon: IcoController },
+  coopOnline: { icon: IcoCoop },
+  coopLan: { icon: IcoCoop },
+  coopScreenSplit: { icon: IcoCoop },
+  remotePlay: { icon: IcoRemotePlay },
+  singlePlayer: { icon: IcoSinglePlayer },
+  multiplayer: { icon: IcoMultiPlayer },
 }
