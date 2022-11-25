@@ -35,6 +35,8 @@ export default function Edit({
   const {
     gameTitle,
     setGameTitle,
+    gameGenre,
+    setGameGenre,
     gameDescription,
     setGameDescription,
     gameDevelopers,
@@ -50,13 +52,9 @@ export default function Edit({
     gameFeatures,
     addGameFeatures,
     removeGameFeatures,
+    gameDate,
+    setGameDate,
   } = useGlobalStore()
-  const [multiSelectOptions, setMultiSelectOptions] = useState([
-    'Windows',
-    'Mac',
-    'Linux',
-  ])
-  const [multiSelectValues, setMultiSelectValues] = useState([])
 
   return (
     <Drawer
@@ -65,6 +63,7 @@ export default function Edit({
       onClose={onClose}
       finalFocusRef={btnRef}
       size='md'
+      blockScrollOnMount={false}
     >
       <DrawerOverlay />
       <DrawerContent backgroundColor='nav' color='text'>
@@ -113,8 +112,18 @@ export default function Edit({
             type='text'
             value={gameTitle}
             paddingBlock='16px'
-            placeholder='Game title...'
+            placeholder={`${t('gameTitle')}...`}
+            maxLength={100}
             onChange={e => setGameTitle(e.target.value)}
+          />
+          <Heading fontSize='16px'>{t('gameGenre')}</Heading>
+          <Input
+            type='text'
+            value={gameGenre}
+            paddingBlock='16px'
+            placeholder={`${t('gameGenre')}...`}
+            maxLength={25}
+            onChange={e => setGameGenre(e.target.value)}
           />
           <Heading fontSize='16px'>{t('gameBackgroundImage')}</Heading>
           <Input
@@ -145,7 +154,7 @@ export default function Edit({
           <Textarea
             resize='none'
             value={gameDescription}
-            placeholder='Game title...'
+            placeholder={`${t('gameDescription')}...`}
             onChange={e => setGameDescription(e.target.value)}
           />
           <Heading fontSize='16px'>{t('gameReleaseDate')}</Heading>
@@ -157,11 +166,23 @@ export default function Edit({
                 filter: 'invert(1)',
               },
             }}
+            value={gameDate.toISOString().slice(0, 10)}
+            onChange={e =>
+              setGameDate(new Date(e.target.value.replace(/-/g, '/')))
+            }
           />
           <Heading fontSize='16px'>{t('gameDeveloper')}</Heading>
-          <Input type='text' paddingBlock='16px' placeholder='Developer...' />
+          <Input
+            type='text'
+            paddingBlock='16px'
+            placeholder={`${t('gameDeveloper')}...`}
+          />
           <Heading fontSize='16px'>{t('gamePublisher')}</Heading>
-          <Input type='text' paddingBlock='16px' placeholder='Publisher...' />
+          <Input
+            type='text'
+            paddingBlock='16px'
+            placeholder={`${t('gamePublisher')}...`}
+          />
           <Heading fontSize='16px'>{t('gamePlatforms')}</Heading>
           <Stack direction='row'>
             <Checkbox
@@ -210,10 +231,11 @@ export default function Edit({
             type='number'
             value={gamePrice}
             paddingBlock='16px'
-            placeholder='Price...'
+            placeholder={`${t('gamePrice')}...`}
+            maxLength={10}
             onChange={e => setGamePrice(Number(e.target.value))}
           />
-          <Heading fontSize='16px'>Features</Heading>
+          <Heading fontSize='16px'>{t('gameFeatures')}</Heading>
           {Object.keys(GF).map(key => (
             <Checkbox
               key={key}

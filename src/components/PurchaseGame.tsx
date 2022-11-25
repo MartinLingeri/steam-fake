@@ -27,6 +27,9 @@ export default function PurchaseGame() {
           fontWeight='normal'
           fontSize='21px'
           color='white'
+          textOverflow='ellipsis'
+          overflow='hidden'
+          whiteSpace='nowrap'
         >
           {t('buy', { gameTitle: gameTitle })}
         </Heading>
@@ -36,15 +39,9 @@ export default function PurchaseGame() {
           alignItems='center'
           justifyContent='center'
         >
-          {gamePlatforms[0] && (
-            <Image src={IconPlatformWindows} />
-          )}
-          {gamePlatforms[1] && (
-            <Image src={IconPlatformMac} />
-          )}
-          {gamePlatforms[2] && (
-            <Image src={IconPlatformLinux} />
-          )}
+          {gamePlatforms[0] && <Image minWidth='20px' src={IconPlatformWindows} />}
+          {gamePlatforms[1] && <Image minWidth='20px' src={IconPlatformMac} />}
+          {gamePlatforms[2] && <Image minWidth='20px' src={IconPlatformLinux} />}
         </Box>
       </Stack>
       <Box

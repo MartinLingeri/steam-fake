@@ -5,8 +5,8 @@ import { useGlobalStore } from '../store'
 
 export default function Title() {
   const { t } = useTranslation()
-  const { gameTitle } = useGlobalStore()
-  const breadcrumbs = [t('allGames'), 'Multijugador masivo juegos', gameTitle]
+  const { gameTitle, gameGenre } = useGlobalStore()
+  const breadcrumbs = [t('allGames'), gameGenre, gameTitle]
 
   return (
     <Stack position='relative' zIndex='100'>
@@ -20,6 +20,9 @@ export default function Title() {
           >
             <Heading
               color='textGray'
+              textOverflow='ellipsis'
+              overflow='hidden'
+              whiteSpace='nowrap'
               fontSize='12px'
               fontWeight='400'
               cursor='pointer'
@@ -55,11 +58,14 @@ export default function Title() {
           fontWeight='normal'
           lineHeight='32px'
           textOverflow='ellipsis'
+          overflow='hidden'
+          whiteSpace='nowrap'
         >
           {gameTitle}
         </Heading>
         <Button
           width='auto'
+          minWidth='140px'
           height='30px'
           fontSize='15px'
           lineHeight='30px'

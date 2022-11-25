@@ -6,19 +6,23 @@ type State = {
   setGameType: (gameType: string) => void
   gameTitle: string
   setGameTitle: (title: string) => void
+  gameGenre: string
+  setGameGenre: (genre: string) => void
   gameBanner: string
   setGameBanner: (banner: string) => void
+  gameBackground: string
+  setGameBackground: (background: string) => void
   gameCover: string
   setGameCover: (cover: string) => void
-  gameImages: Array<string>
-  addGameImage: (image: string) => void
-  removeGameImage: (image: string) => void
+  gameImages: Object
+  addGameImage: (key: string, image: string) => void
+  removeGameImage: (key: string, image: string) => void
   gamePrice: number | undefined
   setGamePrice: (price: number) => void
   gameDescription: string
   setGameDescription: (description: string) => void
-  gameDate: number | undefined
-  setGameDate: (date: number) => void
+  gameDate: Date
+  setGameDate: (date: Date) => void
   gameDevelopers: Array<string>
   addGameDevelopers: (developer: string) => void
   removeGameDevelopers: (developer: string) => void
@@ -40,16 +44,29 @@ export const useGlobalStore = create<State>(set => ({
   setGameType: (type: string) => set({ gameType: type }),
   gameTitle: 'Lorem ipsum',
   setGameTitle: (title: string) => set({ gameTitle: title }),
+  gameGenre: 'Action',
+  setGameGenre: (genre: string) => set({ gameGenre: genre }),
   gameBanner: '',
   setGameBanner: (banner: string) => set({ gameBanner: banner }),
-  gameCover: '',
+  gameBackground: 'https://picsum.photos/1438/810',
+  setGameBackground: (background: string) =>
+    set({ gameBackground: background }),
+  gameCover: 'https://picsum.photos/324/151',
   setGameCover: (cover: string) => set({ gameCover: cover }),
-  gameImages: [],
-  addGameImage: (image: string) =>
-    set(state => ({ gameImages: [...state.gameImages, image] })),
-  removeGameImage: (image: string) =>
+  gameImages: {
+    '1': 'https://picsum.photos/600/337',
+    '2': 'https://picsum.photos/600/337',
+    '3': 'https://picsum.photos/600/337',
+    '4': 'https://picsum.photos/600/337',
+    '5': 'https://picsum.photos/600/337',
+  },
+  addGameImage: (key: string, image: string) =>
     set(state => ({
-      gameImages: state.gameImages.filter(i => i !== image),
+      gameImages: { ...state.gameImages, [key]: image },
+    })),
+  removeGameImage: (key: string, image: string) =>
+    set(state => ({
+      gameImages: { ...state.gameImages, [key]: '' },
     })),
   gamePrice: 9999,
   setGamePrice: (price: number) => set({ gamePrice: price }),
@@ -57,8 +74,8 @@ export const useGlobalStore = create<State>(set => ({
     'Lorem impsun dolor sit amet consectetur adipisicing elit. Quisquam, quod.',
   setGameDescription: (description: string) =>
     set({ gameDescription: description }),
-  gameDate: Date.now(),
-  setGameDate: (date: number) => set({ gameDate: date }),
+  gameDate: new Date(),
+  setGameDate: (date: Date) => set({ gameDate: date }),
   gameDevelopers: ['Arkane Studios', 'Bethesda Softworks'],
   addGameDevelopers: (developer: string) =>
     set(state => ({ gameDevelopers: [...state.gameDevelopers, developer] })),
@@ -76,9 +93,9 @@ export const useGlobalStore = create<State>(set => ({
   gamePlatforms: [true, false, false],
   setGamePlatforms: (platform: Array<boolean>) =>
     set({ gamePlatforms: platform }),
-  gameFeatures: new Set(),
+  gameFeatures: new Set(['achievements']),
   addGameFeatures: (feature: string) =>
-    set(state => ({ gameFeatures: { ...state.gameFeatures, feature } })),
+    set(state => ({ gameFeatures: state.gameFeatures.add(feature) })),
   removeGameFeatures: (feature: string) =>
     set(state => {
       const newFeatures = new Set(state.gameFeatures)

@@ -1,7 +1,9 @@
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import { Box, Stack, useDisclosure } from '@chakra-ui/react'
 
 import './App.css'
+
+import { useGlobalStore } from './store'
 
 import Navbar from './components/Navbar'
 import StoreNav from './components/StoreNav'
@@ -16,8 +18,7 @@ import GameBackgroundShadow from './assets/game_page_background_shadow.png'
 import PageContent from './components/PageContent'
 
 function App() {
-  const [bgImage, setBgImage] = useState('https://picsum.photos/1438/810')
-
+  const { gameBackground } = useGlobalStore()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = useRef(null)
 
@@ -38,7 +39,7 @@ function App() {
             position: 'absolute',
             width: '100%',
             height: '800px',
-            backgroundImage: `url(${bgImage})`,
+            backgroundImage: `url(${gameBackground})`,
             backgroundPosition: 'center top',
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',

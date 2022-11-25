@@ -5,22 +5,23 @@ import { useTranslation } from 'react-i18next'
 import { useGlobalStore } from '../store'
 
 import GameBackgroundShadow from '../assets/game_page_background_shadow.png'
+import IconGameHighLightVide from '../assets/ico_game_highlight_video.png'
 import ImageSlider from './ImageSlider'
 
 export default function GameInfo() {
-  const { t } = useTranslation()
-  const { gameDescription, gameDevelopers, gamePublishers } = useGlobalStore()
+  const { t, i18n } = useTranslation()
+  const {
+    gameDescription,
+    gameDevelopers,
+    gamePublishers,
+    gameDate,
+    gameImages,
+  } = useGlobalStore()
   const [selectedImageIndex, setSeletedImageIndex] = useState(0)
   const [tags, setTags] = useState(['Action', 'Adventure', 'RPG', 'Sci-Fi'])
 
-  const highlightImage = [
-    'https://picsum.photos/600/337',
-    'https://picsum.photos/600/337',
-    'https://picsum.photos/600/337',
-  ]
-
   function selectNextImage() {
-    if (selectedImageIndex === highlightImage.length - 1) {
+    if (selectedImageIndex === Object.keys(gameImages).length - 1) {
       setSeletedImageIndex(0)
     } else {
       setSeletedImageIndex(selectedImageIndex + 1)
@@ -29,7 +30,7 @@ export default function GameInfo() {
 
   function selectPreviousImage() {
     if (selectedImageIndex === 0) {
-      setSeletedImageIndex(highlightImage.length - 1)
+      setSeletedImageIndex(Object.keys(gameImages).length - 1)
     } else {
       setSeletedImageIndex(selectedImageIndex - 1)
     }
@@ -54,16 +55,17 @@ export default function GameInfo() {
         zIndex: 0,
       }}
     >
-      <Stack zIndex='100'>
+      <Box display='flex' flexDirection='column' zIndex='100' gap='6px'>
         <Image
-          src={highlightImage[selectedImageIndex]}
+          src={Object.values(gameImages)[selectedImageIndex]}
           width='600px'
           height='337px'
           cursor='pointer'
           transition='all 0.3s ease-in-out'
+          objectFit='cover'
         ></Image>
-        <Stack direction='row'>
-          {highlightImage.map((thumbnail, index) => (
+        <Box display='flex' flexDirection='row' gap='6px'>
+          {Object.values(gameImages).map((thumbnail, index) => (
             <Box
               key={index}
               position='relative'
@@ -87,17 +89,22 @@ export default function GameInfo() {
               cursor='pointer'
               onClick={() => setSeletedImageIndex(index)}
             >
-              <Image src={thumbnail} width='115px' height='65px' />
+              <Image
+                src={thumbnail}
+                width='115px'
+                height='65px'
+                objectFit='cover'
+              />
             </Box>
           ))}
-        </Stack>
+        </Box>
         <ImageSlider
           selectNextImage={selectNextImage}
           selectPreviousImage={selectPreviousImage}
           selectedImageIndex={selectedImageIndex}
-          imagesLength={highlightImage.length}
+          imagesLength={Object.keys(gameImages).length}
         />
-      </Stack>
+      </Box>
       <Stack zIndex='100' width='324px'>
         <Image
           src='https://picsum.photos/324/151'
@@ -157,6 +164,21 @@ export default function GameInfo() {
             whiteSpace='nowrap'
           >
             {t('releaseDate')}:
+          </Heading>
+          <Heading
+            textTransform={i18n.language == 'en' ? 'capitalize' : 'uppercase'}
+            color='textGray'
+            fontSize='12px'
+            fontWeight='400'
+            fontFamily='Arial'
+            lineHeight='16px'
+            whiteSpace='nowrap'
+          >
+            {gameDate.toLocaleString(i18n.language, {
+              month: 'short',
+              day: 'numeric',
+              year: 'numeric',
+            })}
           </Heading>
         </Stack>
         <Box marginBlock='8px !important'>
