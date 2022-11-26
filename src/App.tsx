@@ -18,7 +18,7 @@ import GameBackgroundShadow from './assets/game_page_background_shadow.png'
 import PageContent from './components/PageContent'
 
 function App() {
-  const { gameBackground } = useGlobalStore()
+  const { gameBackground, gameBanner } = useGlobalStore()
   const { isOpen, onOpen, onClose } = useDisclosure()
   const btnRef = useRef(null)
 
@@ -51,7 +51,7 @@ function App() {
           _after={{
             content: '""',
             position: 'absolute',
-            top: '564px;',
+            top: gameBanner ? '564px' : '418px',
             width: '100%',
             height: '100%',
             backgroundImage: `url(${GameBackgroundShadow})`,

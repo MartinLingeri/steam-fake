@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import {
   Button,
   Checkbox,
@@ -22,6 +21,19 @@ import { useGlobalStore } from '../store'
 import { langs } from '../i18n'
 import { useTranslation } from 'react-i18next'
 
+const reviewType = {
+  op: 'Overwhelmingly Positive',
+  vp: 'Very Positive',
+  p: 'Positive',
+  mp: 'Mostly Positive',
+  m: 'Mixed',
+  mn: 'Mostly Negative',
+  n: 'Negative',
+  vn: 'Very Negative',
+  on: 'Overwhelmingly Negative',
+  de: 'No user reviews',
+}
+
 export default function Edit({
   isOpen,
   onClose,
@@ -39,6 +51,8 @@ export default function Edit({
     setGameGenre,
     gameDescription,
     setGameDescription,
+    gameReview,
+    setGameReview,
     gameDevelopers,
     addGameDevelopers,
     removeGameDevelopers,
@@ -157,6 +171,84 @@ export default function Edit({
             placeholder={`${t('gameDescription')}...`}
             onChange={e => setGameDescription(e.target.value)}
           />
+          <Heading fontSize='16px'>{t('gameRecentReviews')}</Heading>
+          <Stack
+            direction='row'
+            alignItems='center'
+            justifyContent='space-between'
+          >
+            <Select
+              width='100%'
+              bgColor='white'
+              color='black'
+              value={gameReview.recent.type}
+              onChange={e =>
+                setGameReview('recent', {
+                  type:
+                    e.target.value == 'none'
+                      ? 'none'
+                      : reviewType[e.target.value as keyof typeof reviewType],
+                  count: gameReview.recent.count,
+                })
+              }
+            >
+              {Object.keys(reviewType)
+                .slice(0, 9)
+                .map(type => (
+                  <option key={type} value={type}>
+                    {reviewType[type as keyof typeof reviewType]}
+                  </option>
+                ))}
+              <option value={'none'}>None</option>
+            </Select>
+            <Input
+              type='number'
+              value={gameReview.recent.count}
+              maxLength={7}
+              disabled={gameReview.recent.type === 'none'}
+              onChange={e =>
+                setGameReview('recent', {
+                  type: gameReview.recent.type,
+                  count: Number(e.target.value),
+                })
+              }
+            />
+          </Stack>
+          <Heading fontSize='16px'>{t('gameAllReviews')}</Heading>
+          <Stack
+            direction='row'
+            alignItems='center'
+            justifyContent='space-between'
+          >
+            <Select
+              width='100%'
+              bgColor='white'
+              color='black'
+              onChange={e =>
+                setGameReview('all', {
+                  type: reviewType[e.target.value as keyof typeof reviewType],
+                  count: gameReview.all.count,
+                })
+              }
+            >
+              {Object.keys(reviewType).map(type => (
+                <option key={type} value={type}>
+                  {reviewType[type as keyof typeof reviewType]}
+                </option>
+              ))}
+            </Select>
+            <Input
+              type='number'
+              value={gameReview.all.count}
+              maxLength={7}
+              onChange={e =>
+                setGameReview('all', {
+                  type: gameReview.all.type,
+                  count: Number(e.target.value),
+                })
+              }
+            />
+          </Stack>
           <Heading fontSize='16px'>{t('gameReleaseDate')}</Heading>
           <Input
             type='date'

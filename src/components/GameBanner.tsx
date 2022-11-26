@@ -1,19 +1,24 @@
-import { Box, Stack } from '@chakra-ui/react'
+import { Image } from '@chakra-ui/react'
+
+import { useGlobalStore } from '../store'
 
 export default function GameBanner() {
+  const { gameBanner } = useGlobalStore()
   return (
-    <Stack
-      alignItems='center'
-      justifyContent='center'
-      color='white'
+    <Image
+      src={gameBanner}
+      cursor='pointer'
       width='940px'
       height='137px'
-      bgColor='transparent'
-      border='2px solid #ddd'
       margin='-4px 0 !important'
-      zIndex="100"
-    >
-      <Box>GameBanner</Box>
-    </Stack>
+      transform='scale(1.00)'
+      filter='saturate(0.85)'
+      transition='transform.21s ease-in-out, filter .21s ease-in-out'
+      zIndex='100'
+      _hover={{
+        filter: 'saturate(1.0)',
+        transform: 'scale(1.03)',
+      }}
+    />
   )
 }

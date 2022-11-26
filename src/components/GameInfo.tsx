@@ -16,6 +16,7 @@ export default function GameInfo() {
     gamePublishers,
     gameDate,
     gameImages,
+    gameReview,
   } = useGlobalStore()
   const [selectedImageIndex, setSeletedImageIndex] = useState(0)
   const [tags, setTags] = useState(['Action', 'Adventure', 'RPG', 'Sci-Fi'])
@@ -117,35 +118,64 @@ export default function GameInfo() {
           color='text'
           paddingRight='16px'
           width='324px'
-          height='108px'
+          minHeight='36px'
+          maxHeight='108px'
           fontSize='13px'
           lineHeight='18px'
         >
           {gameDescription}
         </Text>
         <Box marginTop='8px !important' marginBottom='4px !important'>
+          {gameReview.recent.type != 'none' && (
+            <Stack direction='row' alignItems='center'>
+              <Heading
+                textTransform='uppercase'
+                color='textDarkGray'
+                fontSize='10px'
+                fontWeight='400'
+                textOverflow='ellipsis'
+                lineHeight='16px'
+                fontFamily='Arial'
+                minWidth='94px'
+              >
+                {t('recentReviews')}:
+              </Heading>
+              <Link>
+                <Heading
+                  color='primary.100'
+                  fontSize='12px'
+                  fontWeight='400'
+                  fontFamily='Arial'
+                  lineHeight='16px'
+                  whiteSpace='nowrap'
+                  display='inline-block'
+                >
+                  {gameReview.recent.type}
+                </Heading>{' '}
+                <Heading
+                  color='textDarkGray'
+                  fontSize='12px'
+                  fontWeight='400'
+                  fontFamily='Arial'
+                  lineHeight='16px'
+                  whiteSpace='nowrap'
+                  display='inline-block'
+                >
+                  ({gameReview.recent.count})
+                </Heading>
+              </Link>
+            </Stack>
+          )}
           <Stack direction='row' alignItems='center'>
             <Heading
               textTransform='uppercase'
               color='textDarkGray'
               fontSize='10px'
               fontWeight='400'
-              textOverflow='ellipsis'
-              lineHeight='16px'
-              fontFamily='Arial'
-            >
-              {t('recentReviews')}:
-            </Heading>
-          </Stack>
-          <Stack direction='row' alignItems='center'>
-            <Heading
-              textTransform='uppercase'
-              color='textDarkGray'
-              fontSize='10px'
-              fontWeight='400'
               fontFamily='Arial'
               textOverflow='ellipsis'
               lineHeight='16px'
+              minWidth='94px'
             >
               {t('allReviews')}:
             </Heading>
@@ -162,6 +192,7 @@ export default function GameInfo() {
             marginBlock='4px !important'
             lineHeight='16px'
             whiteSpace='nowrap'
+            minWidth='94px'
           >
             {t('releaseDate')}:
           </Heading>

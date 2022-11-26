@@ -21,6 +21,11 @@ type State = {
   setGamePrice: (price: number) => void
   gameDescription: string
   setGameDescription: (description: string) => void
+  gameReview: {
+    recent: { type: string; count: number }
+    all: { type: string; count: number }
+  }
+  setGameReview: (type: string, review: { type: string; count: number }) => void
   gameDate: Date
   setGameDate: (date: Date) => void
   gameDevelopers: Array<string>
@@ -46,7 +51,7 @@ export const useGlobalStore = create<State>(set => ({
   setGameTitle: (title: string) => set({ gameTitle: title }),
   gameGenre: 'Action',
   setGameGenre: (genre: string) => set({ gameGenre: genre }),
-  gameBanner: '',
+  gameBanner: 'https://picsum.photos/940/137',
   setGameBanner: (banner: string) => set({ gameBanner: banner }),
   gameBackground: 'https://picsum.photos/1438/810',
   setGameBackground: (background: string) =>
@@ -74,6 +79,11 @@ export const useGlobalStore = create<State>(set => ({
     'Lorem impsun dolor sit amet consectetur adipisicing elit. Quisquam, quod.',
   setGameDescription: (description: string) =>
     set({ gameDescription: description }),
+  gameReview: { recent: { type: 'none', count: 0 }, all: { type: '', count: 0 } },
+  setGameReview: (type: string, review: { type: string; count: number }) =>
+    set(state => ({
+      gameReview: { ...state.gameReview, [type]: review },
+    })),
   gameDate: new Date(),
   setGameDate: (date: Date) => set({ gameDate: date }),
   gameDevelopers: ['Arkane Studios', 'Bethesda Softworks'],
