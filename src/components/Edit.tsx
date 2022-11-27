@@ -15,24 +15,12 @@ import {
   Textarea,
 } from '@chakra-ui/react'
 
-import { gameFeatures as GF } from './gameFeatures'
-
 import { useGlobalStore } from '../store'
 import { langs } from '../i18n'
 import { useTranslation } from 'react-i18next'
 
-const reviewType = {
-  op: 'Overwhelmingly Positive',
-  vp: 'Very Positive',
-  p: 'Positive',
-  mp: 'Mostly Positive',
-  m: 'Mixed',
-  mn: 'Mostly Negative',
-  n: 'Negative',
-  vn: 'Very Negative',
-  on: 'Overwhelmingly Negative',
-  de: 'No user reviews',
-}
+import { gameFeatures as GF } from './gameFeatures'
+import { reviewType } from './reviewType'
 
 export default function Edit({
   isOpen,
@@ -53,12 +41,10 @@ export default function Edit({
     setGameDescription,
     gameReview,
     setGameReview,
-    gameDevelopers,
-    addGameDevelopers,
-    removeGameDevelopers,
-    gamePublishers,
-    addGamePublishers,
-    removeGamePublishers,
+    gameDeveloper,
+    setGameDeveloper,
+    gamePublisher,
+    setGamePublisher,
     gamePlatforms,
     setGamePlatforms,
     gamePrice,
@@ -145,6 +131,7 @@ export default function Edit({
             variant='unstyled'
             borderRadius='0'
             paddingBottom='32px'
+            accept="image/png, image/jpeg, image/jpg"
           />
           <Heading fontSize='16px'>
             {t('gameBanner', { res: '(940 x 137)' })}
@@ -154,6 +141,7 @@ export default function Edit({
             variant='unstyled'
             borderRadius='0'
             paddingBottom='32px'
+            accept="image/png, image/jpeg, image/jpg"
           />
           <Heading fontSize='16px'>
             {t('gameCover', { res: '(324 x 151)' })}
@@ -163,6 +151,7 @@ export default function Edit({
             variant='unstyled'
             borderRadius='0'
             paddingBottom='32px'
+            accept="image/png, image/jpeg, image/jpg"
           />
           <Heading fontSize='16px'>{t('gameDescription')}</Heading>
           <Textarea
@@ -184,10 +173,7 @@ export default function Edit({
               value={gameReview.recent.type}
               onChange={e =>
                 setGameReview('recent', {
-                  type:
-                    e.target.value == 'none'
-                      ? 'none'
-                      : reviewType[e.target.value as keyof typeof reviewType],
+                  type: e.target.value,
                   count: gameReview.recent.count,
                 })
               }
@@ -196,20 +182,20 @@ export default function Edit({
                 .slice(0, 9)
                 .map(type => (
                   <option key={type} value={type}>
-                    {reviewType[type as keyof typeof reviewType]}
+                    {t(`reviewType.${type}`)}
                   </option>
                 ))}
-              <option value={'none'}>None</option>
+              <option value={'none'}>{t('reviewType.none')}</option>
             </Select>
             <Input
-              type='number'
+              type='text'
               value={gameReview.recent.count}
               maxLength={7}
               disabled={gameReview.recent.type === 'none'}
               onChange={e =>
                 setGameReview('recent', {
                   type: gameReview.recent.type,
-                  count: Number(e.target.value),
+                  count: Number(e.target.value.replace(/\D/g, '')),
                 })
               }
             />
@@ -224,27 +210,31 @@ export default function Edit({
               width='100%'
               bgColor='white'
               color='black'
+              value={gameReview.all.type}
               onChange={e =>
                 setGameReview('all', {
-                  type: reviewType[e.target.value as keyof typeof reviewType],
+                  type: e.target.value,
                   count: gameReview.all.count,
                 })
               }
             >
-              {Object.keys(reviewType).map(type => (
-                <option key={type} value={type}>
-                  {reviewType[type as keyof typeof reviewType]}
-                </option>
-              ))}
+              {Object.keys(reviewType)
+                .slice(0, 10)
+                .map(type => (
+                  <option key={type} value={type}>
+                    {t(`reviewType.${type}`)}
+                  </option>
+                ))}
             </Select>
             <Input
-              type='number'
+              type='text'
               value={gameReview.all.count}
               maxLength={7}
+              disabled={gameReview.all.type === 'de'}
               onChange={e =>
                 setGameReview('all', {
                   type: gameReview.all.type,
-                  count: Number(e.target.value),
+                  count: Number(e.target.value.replace(/\D/g, '')),
                 })
               }
             />
@@ -258,22 +248,36 @@ export default function Edit({
                 filter: 'invert(1)',
               },
             }}
-            value={gameDate.toISOString().slice(0, 10)}
-            onChange={e =>
-              setGameDate(new Date(e.target.value.replace(/-/g, '/')))
+            value={
+              gameDate == ''
+                ? ''
+                : new Date(gameDate).toISOString().slice(0, 10)
             }
+            onChange={e => {
+              if (e.target.value) {
+                setGameDate(new Date(e.target.value.replace(/-/g, '/')))
+              } else {
+                setGameDate('')
+              }
+            }}
           />
           <Heading fontSize='16px'>{t('gameDeveloper')}</Heading>
           <Input
             type='text'
             paddingBlock='16px'
+            value={gameDeveloper}
             placeholder={`${t('gameDeveloper')}...`}
+            maxLength={50}
+            onChange={e => setGameDeveloper(e.target.value)}
           />
           <Heading fontSize='16px'>{t('gamePublisher')}</Heading>
           <Input
             type='text'
             paddingBlock='16px'
+            value={gamePublisher}
             placeholder={`${t('gamePublisher')}...`}
+            maxLength={50}
+            onChange={e => setGamePublisher(e.target.value)}
           />
           <Heading fontSize='16px'>{t('gamePlatforms')}</Heading>
           <Stack direction='row'>
@@ -320,12 +324,14 @@ export default function Edit({
           </Stack>
           <Heading fontSize='16px'>{t('gamePrice')}</Heading>
           <Input
-            type='number'
+            type='text'
             value={gamePrice}
             paddingBlock='16px'
             placeholder={`${t('gamePrice')}...`}
-            maxLength={10}
-            onChange={e => setGamePrice(Number(e.target.value))}
+            maxLength={7}
+            onChange={e =>
+              setGamePrice(Number(e.target.value.replace(/\D/g, '')))
+            }
           />
           <Heading fontSize='16px'>{t('gameFeatures')}</Heading>
           {Object.keys(GF).map(key => (

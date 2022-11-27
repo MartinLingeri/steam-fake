@@ -39,9 +39,13 @@ export default function PurchaseGame() {
           alignItems='center'
           justifyContent='center'
         >
-          {gamePlatforms[0] && <Image minWidth='20px' src={IconPlatformWindows} />}
+          {gamePlatforms[0] && (
+            <Image minWidth='20px' src={IconPlatformWindows} />
+          )}
           {gamePlatforms[1] && <Image minWidth='20px' src={IconPlatformMac} />}
-          {gamePlatforms[2] && <Image minWidth='20px' src={IconPlatformLinux} />}
+          {gamePlatforms[2] && (
+            <Image minWidth='20px' src={IconPlatformLinux} />
+          )}
         </Box>
       </Stack>
       <Box
@@ -62,11 +66,13 @@ export default function PurchaseGame() {
           paddingInline='12px'
           whiteSpace='nowrap'
         >
-          {gamePrice?.toLocaleString('es-AR', {
-            style: 'currency',
-            currency: 'ARS',
-            currencyDisplay: 'code',
-          })}
+          {gamePrice == 0
+            ? t('freeToPlay')
+            : gamePrice?.toLocaleString('es-AR', {
+                style: 'currency',
+                currency: 'ARS',
+                currencyDisplay: 'code',
+              })}
         </Text>
         <Button
           fontSize='15px'
@@ -80,7 +86,7 @@ export default function PurchaseGame() {
           height='30px'
           _hover={{ filter: 'brightness(1.2)' }}
         >
-          {t('addToCart')}
+          {gamePrice == 0 ? t('play') : t('addToCart')}
         </Button>
       </Box>
     </Box>

@@ -8,12 +8,14 @@ import GameBackgroundShadow from '../assets/game_page_background_shadow.png'
 import IconGameHighLightVide from '../assets/ico_game_highlight_video.png'
 import ImageSlider from './ImageSlider'
 
+import { reviewType } from './reviewType'
+
 export default function GameInfo() {
   const { t, i18n } = useTranslation()
   const {
     gameDescription,
-    gameDevelopers,
-    gamePublishers,
+    gameDeveloper,
+    gamePublisher,
     gameDate,
     gameImages,
     gameReview,
@@ -142,7 +144,11 @@ export default function GameInfo() {
               </Heading>
               <Link>
                 <Heading
-                  color='primary.100'
+                  color={
+                    reviewType[
+                      gameReview.recent.type as keyof typeof reviewType
+                    ].color
+                  }
                   fontSize='12px'
                   fontWeight='400'
                   fontFamily='Arial'
@@ -150,7 +156,7 @@ export default function GameInfo() {
                   whiteSpace='nowrap'
                   display='inline-block'
                 >
-                  {gameReview.recent.type}
+                  {t(`reviewType.${gameReview.recent.type}`)}
                 </Heading>{' '}
                 <Heading
                   color='textDarkGray'
@@ -161,7 +167,11 @@ export default function GameInfo() {
                   whiteSpace='nowrap'
                   display='inline-block'
                 >
-                  ({gameReview.recent.count})
+                  (
+                  {Intl.NumberFormat(i18n.language).format(
+                    gameReview.recent.count,
+                  )}
+                  )
                 </Heading>
               </Link>
             </Stack>
@@ -179,6 +189,55 @@ export default function GameInfo() {
             >
               {t('allReviews')}:
             </Heading>
+            {gameReview.all.type == 'de' ? (
+              <Heading
+                color={
+                  reviewType[gameReview.all.type as keyof typeof reviewType]
+                    .color
+                }
+                fontSize='12px'
+                fontWeight='400'
+                fontFamily='Arial'
+                lineHeight='16px'
+                whiteSpace='nowrap'
+                display='inline-block'
+                cursor='pointer'
+              >
+                {t('reviewType.de')}
+              </Heading>
+            ) : (
+              <Link>
+                <Heading
+                  color={
+                    reviewType[gameReview.all.type as keyof typeof reviewType]
+                      .color
+                  }
+                  fontSize='12px'
+                  fontWeight='400'
+                  fontFamily='Arial'
+                  lineHeight='16px'
+                  whiteSpace='nowrap'
+                  display='inline-block'
+                >
+                  {t(`reviewType.${gameReview.all.type}`)}
+                </Heading>{' '}
+                <Heading
+                  color='textDarkGray'
+                  fontSize='12px'
+                  fontWeight='400'
+                  fontFamily='Arial'
+                  lineHeight='16px'
+                  whiteSpace='nowrap'
+                  display='inline-block'
+                >
+                  (
+                  {Intl.NumberFormat(i18n.language).format(
+                    gameReview.all.count,
+                  )}
+                  )
+                </Heading>
+              </Link>
+            )}
           </Stack>
         </Box>
         <Stack direction='row' alignItems='center'>
@@ -205,11 +264,14 @@ export default function GameInfo() {
             lineHeight='16px'
             whiteSpace='nowrap'
           >
-            {gameDate.toLocaleString(i18n.language, {
-              month: 'short',
-              day: 'numeric',
-              year: 'numeric',
-            })}
+            {gameDate == ''}
+            {gameDate == ''
+              ? 'TBA'
+              : gameDate.toLocaleString(i18n.language, {
+                  month: 'short',
+                  day: 'numeric',
+                  year: 'numeric',
+                })}
           </Heading>
         </Stack>
         <Box marginBlock='8px !important'>
@@ -225,24 +287,17 @@ export default function GameInfo() {
             >
               {t('developer')}:
             </Heading>
-            {gameDevelopers.map((developer, index) => (
-              <Link
-                key={index}
-                overflow='hidden'
-                whiteSpace='nowrap'
-                textOverflow={
-                  index !== gameDevelopers.length - 1 ? 'clip' : 'ellipsis'
-                }
-                flex={index !== gameDevelopers.length - 1 ? 'unset' : 1}
-                color='primary.100'
-                textDecoration='none'
-                fontSize='12px'
-                _hover={{ color: 'white' }}
-              >
-                {developer}
-                {index !== gameDevelopers.length - 1 && ', '}
-              </Link>
-            ))}
+            <Link
+              overflow='hidden'
+              whiteSpace='nowrap'
+              textOverflow='ellipsis'
+              color='primary.100'
+              textDecoration='none'
+              fontSize='12px'
+              _hover={{ color: 'white' }}
+            >
+              {gameDeveloper}
+            </Link>
           </Stack>
           <Stack direction='row' alignItems='center' overflow='hidden'>
             <Heading
@@ -256,24 +311,17 @@ export default function GameInfo() {
             >
               {t('publisher')}:
             </Heading>
-            {gamePublishers.map((publisher, index) => (
-              <Link
-                key={index}
-                overflow='hidden'
-                whiteSpace='nowrap'
-                textOverflow={
-                  index !== gameDevelopers.length - 1 ? 'clip' : 'ellipsis'
-                }
-                flex={index !== gameDevelopers.length - 1 ? 'unset' : 1}
-                color='primary.100'
-                textDecoration='none'
-                fontSize='12px'
-                _hover={{ color: 'white' }}
-              >
-                {publisher}
-                {index !== gamePublishers.length - 1 && ', '}
-              </Link>
-            ))}
+            <Link
+              overflow='hidden'
+              whiteSpace='nowrap'
+              textOverflow='ellipsis'
+              color='primary.100'
+              textDecoration='none'
+              fontSize='12px'
+              _hover={{ color: 'white' }}
+            >
+              {gamePublisher}
+            </Link>
           </Stack>
         </Box>
         <Box display='flex' flexDirection='column' margin='0 !important'>

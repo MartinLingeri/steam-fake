@@ -67,11 +67,12 @@ export default function StoreNav() {
           width='202px'
           height='29px'
           fontSize='14px'
+          fontStyle='italic'
           placeholder={t('nav.searchPlaceholder')!}
           _placeholder={{
             color: '#0e1c25',
             textTransform: 'lowercase',
-            fontStyle: 'oblique',
+            fontStyle:'italic',
           }}
           _hover={{ border: '1px solid #54a5d4' }}
         ></Input>

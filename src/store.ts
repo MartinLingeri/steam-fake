@@ -26,14 +26,12 @@ type State = {
     all: { type: string; count: number }
   }
   setGameReview: (type: string, review: { type: string; count: number }) => void
-  gameDate: Date
-  setGameDate: (date: Date) => void
-  gameDevelopers: Array<string>
-  addGameDevelopers: (developer: string) => void
-  removeGameDevelopers: (developer: string) => void
-  gamePublishers: Array<string>
-  addGamePublishers: (publisher: string) => void
-  removeGamePublishers: (publisher: string) => void
+  gameDate: Date | string
+  setGameDate: (date: Date | string) => void
+  gameDeveloper: string
+  setGameDeveloper: (developer: string) => void
+  gamePublisher: string
+  setGamePublisher: (publisher: string) => void
   gamePlatforms: Array<boolean>
   setGamePlatforms: (platform: Array<boolean>) => void
   gameFeatures: Set<string>
@@ -60,10 +58,6 @@ export const useGlobalStore = create<State>(set => ({
   setGameCover: (cover: string) => set({ gameCover: cover }),
   gameImages: {
     '1': 'https://picsum.photos/600/337',
-    '2': 'https://picsum.photos/600/337',
-    '3': 'https://picsum.photos/600/337',
-    '4': 'https://picsum.photos/600/337',
-    '5': 'https://picsum.photos/600/337',
   },
   addGameImage: (key: string, image: string) =>
     set(state => ({
@@ -79,27 +73,20 @@ export const useGlobalStore = create<State>(set => ({
     'Lorem impsun dolor sit amet consectetur adipisicing elit. Quisquam, quod.',
   setGameDescription: (description: string) =>
     set({ gameDescription: description }),
-  gameReview: { recent: { type: 'none', count: 0 }, all: { type: '', count: 0 } },
+  gameReview: {
+    recent: { type: 'none', count: 0 },
+    all: { type: 'de', count: 0 },
+  },
   setGameReview: (type: string, review: { type: string; count: number }) =>
     set(state => ({
       gameReview: { ...state.gameReview, [type]: review },
     })),
   gameDate: new Date(),
-  setGameDate: (date: Date) => set({ gameDate: date }),
-  gameDevelopers: ['Arkane Studios', 'Bethesda Softworks'],
-  addGameDevelopers: (developer: string) =>
-    set(state => ({ gameDevelopers: [...state.gameDevelopers, developer] })),
-  removeGameDevelopers: (developer: string) =>
-    set(state => ({
-      gameDevelopers: state.gameDevelopers.filter(d => d !== developer),
-    })),
-  gamePublishers: ['Bethesda Softworks'],
-  addGamePublishers: (publisher: string) =>
-    set(state => ({ gamePublishers: [...state.gamePublishers, publisher] })),
-  removeGamePublishers: (publisher: string) =>
-    set(state => ({
-      gamePublishers: state.gamePublishers.filter(p => p !== publisher),
-    })),
+  setGameDate: (date: Date | string) => set({ gameDate: date }),
+  gameDeveloper: 'Arkane Studios',
+  setGameDeveloper: (developer: string) => set({ gameDeveloper: developer }),
+  gamePublisher: 'Bethesda Softworks',
+  setGamePublisher: (publisher: string) => set({ gamePublisher: publisher }),
   gamePlatforms: [true, false, false],
   setGamePlatforms: (platform: Array<boolean>) =>
     set({ gamePlatforms: platform }),

@@ -33,8 +33,9 @@ i18next
           gameRecentReviews:
             'Game Recent Reviews (optional if game is not released)',
           gameAllReviews: 'Game All Reviews',
-          gamePrice: 'Game Price',
-          gameReleaseDate: 'Game Release Date',
+          gamePrice: 'Game Price (put 0 if game is free to play)',
+          gameReleaseDate:
+            'Game Release Date (press on "clear" if TBA)',
           gameDeveloper: 'Game Developer',
           gamePublisher: 'Game Publisher',
           gamePlatforms: 'Game Platforms',
@@ -79,8 +80,10 @@ i18next
             vn: 'Very Negative',
             on: 'Overwhelmingly Negative',
             de: 'No user reviews',
-            none: 'none',
+            none: 'None',
           },
+          play: 'Play Game',
+          freeToPlay: 'Free to Play',
         },
       },
       es: {
@@ -106,8 +109,9 @@ i18next
           gameRecentReviews:
             'Reseñas recientes del juego (opcional si el juego no ha sido lanzado)',
           gameAllReviews: 'Reseñas generales del juego',
-          gamePrice: 'Precio del juego',
-          gameReleaseDate: 'Fecha de lanzamiento del juego',
+          gamePrice: 'Precio del juego (pon 0 si el juego es gratuito)',
+          gameReleaseDate:
+            'Fecha de lanzamiento del juego (selecciona "borrar" si no tiene fecha)',
           gameDeveloper: 'Desarrollador del juego',
           gamePublisher: 'Editor del juego',
           gamePlatforms: 'Plataformas del juego',
@@ -152,8 +156,10 @@ i18next
             vn: 'Muy negativas',
             on: 'Extremadamente negativas',
             de: 'No existen reseñas de usuarios',
-            none: 'ninguna',
+            none: 'Ninguna',
           },
+          play: 'Jugar',
+          freeToPlay: 'Free to Play',
         },
       },
       pt: {
@@ -179,8 +185,9 @@ i18next
           gameRecentReviews:
             'Análises recentes do jogo (opcional se o jogo não foi lançado)',
           gameAllReviews: 'Todas as análises do jogo',
-          gamePrice: 'Preço do jogo',
-          gameReleaseDate: 'Data de lançamento do jogo',
+          gamePrice: 'Preço do jogo (coloque 0 se o jogo for gratuito)',
+          gameReleaseDate:
+            'Data de lançamento do jogo (selecione "apagar" se não tiver data)',
           gameDeveloper: 'Desenvolvedor do jogo',
           gamePublisher: 'Distribuidora do jogo',
           gamePlatforms: 'Plataformas do jogo',
@@ -225,8 +232,10 @@ i18next
             vn: 'Muito negativas',
             on: 'Extremamente negativas',
             de: 'Nenhuma análise de usuário',
-            none: 'nenhuma',
+            none: 'Nenhuma',
           },
+          play: 'Jogar',
+          freeToPlay: 'Free to Play',
         },
       },
     },
