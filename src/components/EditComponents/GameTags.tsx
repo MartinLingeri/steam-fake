@@ -24,7 +24,7 @@ export default function GameTags() {
             setTag(e.target.value)
           }}
         />
-        <Button colorScheme='blue' onClick={() => addGameTags(tag)}>
+        <Button colorScheme='blue' minWidth="fit-content" onClick={() => addGameTags(tag)}>
           {t('addTag')}
         </Button>
       </Stack>
