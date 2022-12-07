@@ -37,7 +37,7 @@ type State = {
   gameFeatures: Set<string>
   addGameFeatures: (feature: string) => void
   removeGameFeatures: (feature: string) => void
-  gameTags: Array<string>
+  gameTags: Set<string>
   addGameTags: (tag: string) => void
   removeGameTags: (tag: string) => void
 }
@@ -99,9 +99,13 @@ export const useGlobalStore = create<State>(set => ({
       newFeatures.delete(feature)
       return { gameFeatures: newFeatures }
     }),
-  gameTags: [],
+  gameTags: new Set(['Action']),
   addGameTags: (tag: string) =>
-    set(state => ({ gameTags: [...state.gameTags, tag] })),
+    set(state => ({ gameTags: state.gameTags.add(tag) })),
   removeGameTags: (tag: string) =>
-    set(state => ({ gameTags: state.gameTags.filter(t => t !== tag) })),
+    set(state => {
+      const newTags = new Set(state.gameTags)
+      newTags.delete(tag)
+      return { gameTags: newTags }
+    }),
 }))

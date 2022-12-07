@@ -19,9 +19,9 @@ export default function GameInfo() {
     gameDate,
     gameImages,
     gameReview,
+    gameTags,
   } = useGlobalStore()
   const [selectedImageIndex, setSeletedImageIndex] = useState(0)
-  const [tags, setTags] = useState(['Action', 'Adventure', 'RPG', 'Sci-Fi'])
 
   function selectNextImage() {
     if (selectedImageIndex === Object.keys(gameImages).length - 1) {
@@ -335,9 +335,9 @@ export default function GameInfo() {
             {t('tags')}:
           </Heading>
           <Box display='flex'>
-            {tags.map((tag, index) => (
+            {Array.from(gameTags).map(tag => (
               <Box
-                key={index}
+                key={tag}
                 display='inline-block'
                 height='19px'
                 fontSize='11px'

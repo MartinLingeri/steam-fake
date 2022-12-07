@@ -33,6 +33,8 @@ i18next
           gameRecentReviews:
             'Game Recent Reviews (optional if game is not released)',
           gameAllReviews: 'Game All Reviews',
+          gameTags: 'Game Tags',
+          addTag: 'Add Tag',
           gamePrice: 'Game Price (put 0 if game is free to play)',
           gameReleaseDate:
             'Game Release Date (press on "clear" if TBA)',
@@ -109,6 +111,8 @@ i18next
           gameRecentReviews:
             'Reseñas recientes del juego (opcional si el juego no ha sido lanzado)',
           gameAllReviews: 'Reseñas generales del juego',
+          gameTags: 'Etiquetas del juego',
+          addTag: 'Añadir etiqueta',
           gamePrice: 'Precio del juego (pon 0 si el juego es gratuito)',
           gameReleaseDate:
             'Fecha de lanzamiento del juego (selecciona "borrar" si no tiene fecha)',
@@ -185,6 +189,8 @@ i18next
           gameRecentReviews:
             'Análises recentes do jogo (opcional se o jogo não foi lançado)',
           gameAllReviews: 'Todas as análises do jogo',
+          gameTags: 'Marcadores do jogo',
+          addTag: 'Adicionar marcador',
           gamePrice: 'Preço do jogo (coloque 0 se o jogo for gratuito)',
           gameReleaseDate:
             'Data de lançamento do jogo (selecione "apagar" se não tiver data)',
