@@ -1,20 +1,19 @@
 import { Heading, Input } from '@chakra-ui/react'
 import { useTranslation } from 'react-i18next'
+import { useGlobalStore } from '../../store'
 
 export default function GameBackgroundImage() {
   const { t } = useTranslation()
+  const { gameBackground, setGameBackground } = useGlobalStore()
 
   return (
     <>
       <Heading fontSize='16px'>{t('gameBackgroundImage')}</Heading>
       <Input
-        type='file'
-        variant='unstyled'
-        borderRadius='0'
-        paddingBottom='32px'
-        accept='image/png, image/jpeg, image/jpg'
-        overflow="hidden"
-        textOverflow="ellipsis"
+        type='text'
+        value={gameBackground}
+        paddingBlock='16px'
+        onChange={e => setGameBackground(e.target.value)}
       />
     </>
   )
