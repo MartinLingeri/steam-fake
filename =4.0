@@ -1,0 +1,39 @@
+Progress: resolved 0, reused 1, downloaded 0, added 0
+Progress: resolved 3, reused 3, downloaded 0, added 0
+Progress: resolved 4, reused 4, downloaded 0, added 0
+Progress: resolved 7, reused 6, downloaded 0, added 0
+Progress: resolved 11, reused 10, downloaded 0, added 0
+Progress: resolved 18, reused 17, downloaded 0, added 0
+Progress: resolved 19, reused 18, downloaded 0, added 0
+Progress: resolved 19, reused 18, downloaded 1, added 0
+Progress: resolved 29, reused 28, downloaded 1, added 0
+Progress: resolved 29, reused 29, downloaded 1, added 0
+Progress: resolved 32, reused 29, downloaded 1, added 0
+Progress: resolved 32, reused 30, downloaded 1, added 0
+Progress: resolved 52, reused 49, downloaded 1, added 0
+Progress: resolved 101, reused 98, downloaded 1, added 0
+Progress: resolved 130, reused 112, downloaded 1, added 0
+Progress: resolved 158, reused 133, downloaded 1, added 0
+Progress: resolved 197, reused 172, downloaded 1, added 0
+Progress: resolved 205, reused 180, downloaded 1, added 0
+Progress: resolved 210, reused 185, downloaded 1, added 0
+Progress: resolved 213, reused 188, downloaded 1, added 0
+Progress: resolved 234, reused 210, downloaded 1, added 0
+Progress: resolved 274, reused 250, downloaded 1, added 0
+Progress: resolved 304, reused 281, downloaded 1, added 0
+Progress: resolved 369, reused 346, downloaded 1, added 0
+Progress: resolved 418, reused 395, downloaded 1, added 0
+Progress: resolved 432, reused 409, downloaded 1, added 0
+Progress: resolved 455, reused 432, downloaded 1, added 0
+Progress: resolved 485, reused 462, downloaded 1, added 0
+Packages: +3 -2
++++--
+Progress: resolved 485, reused 462, downloaded 1, added 1
+Progress: resolved 485, reused 462, downloaded 1, added 2
+Progress: resolved 485, reused 462, downloaded 1, added 3
+Progress: resolved 485, reused 462, downloaded 1, added 3, done
+
+dependencies:
++ lodash 4.17.21
+
+Done in 1m 10.8s

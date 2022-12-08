@@ -1,5 +1,5 @@
-import { gameFeatures } from './components/gameFeatures'
 import create from 'zustand'
+import { persist } from 'zustand/middleware'
 
 type State = {
   gameType: string
@@ -42,70 +42,102 @@ type State = {
   removeGameTags: (tag: string) => void
 }
 
-export const useGlobalStore = create<State>(set => ({
-  gameType: '',
-  setGameType: (type: string) => set({ gameType: type }),
-  gameTitle: 'Lorem ipsum',
-  setGameTitle: (title: string) => set({ gameTitle: title }),
-  gameGenre: 'Action',
-  setGameGenre: (genre: string) => set({ gameGenre: genre }),
-  gameBanner: 'https://picsum.photos/940/137',
-  setGameBanner: (banner: string) => set({ gameBanner: banner }),
-  gameBackground: 'https://picsum.photos/1438/810',
-  setGameBackground: (background: string) =>
-    set({ gameBackground: background }),
-  gameCover: 'https://picsum.photos/324/151',
-  setGameCover: (cover: string) => set({ gameCover: cover }),
-  gameImages: {
-    '1': 'https://picsum.photos/600/337',
-  },
-  addGameImage: (key: string, image: string) =>
-    set(state => ({
-      gameImages: { ...state.gameImages, [key]: image },
-    })),
-  removeGameImage: (key: string, image: string) =>
-    set(state => ({
-      gameImages: { ...state.gameImages, [key]: '' },
-    })),
-  gamePrice: 9999,
-  setGamePrice: (price: number) => set({ gamePrice: price }),
-  gameDescription:
-    'Lorem impsun dolor sit amet consectetur adipisicing elit. Quisquam, quod.',
-  setGameDescription: (description: string) =>
-    set({ gameDescription: description }),
-  gameReview: {
-    recent: { type: 'none', count: 0 },
-    all: { type: 'de', count: 0 },
-  },
-  setGameReview: (type: string, review: { type: string; count: number }) =>
-    set(state => ({
-      gameReview: { ...state.gameReview, [type]: review },
-    })),
-  gameDate: new Date(),
-  setGameDate: (date: Date | string) => set({ gameDate: date }),
-  gameDeveloper: 'Arkane Studios',
-  setGameDeveloper: (developer: string) => set({ gameDeveloper: developer }),
-  gamePublisher: 'Bethesda Softworks',
-  setGamePublisher: (publisher: string) => set({ gamePublisher: publisher }),
-  gamePlatforms: [true, false, false],
-  setGamePlatforms: (platform: Array<boolean>) =>
-    set({ gamePlatforms: platform }),
-  gameFeatures: new Set(['achievements']),
-  addGameFeatures: (feature: string) =>
-    set(state => ({ gameFeatures: state.gameFeatures.add(feature) })),
-  removeGameFeatures: (feature: string) =>
-    set(state => {
-      const newFeatures = new Set(state.gameFeatures)
-      newFeatures.delete(feature)
-      return { gameFeatures: newFeatures }
+export const useGlobalStore = create(
+  persist<State>(
+    set => ({
+      gameType: '',
+      setGameType: (type: string) => set({ gameType: type }),
+      gameTitle: 'Lorem ipsum',
+      setGameTitle: (title: string) => set({ gameTitle: title }),
+      gameGenre: 'Action',
+      setGameGenre: (genre: string) => set({ gameGenre: genre }),
+      gameBanner: 'https://picsum.photos/940/137',
+      setGameBanner: (banner: string) => set({ gameBanner: banner }),
+      gameBackground: 'https://picsum.photos/1438/810',
+      setGameBackground: (background: string) =>
+        set({ gameBackground: background }),
+      gameCover: 'https://picsum.photos/324/151',
+      setGameCover: (cover: string) => set({ gameCover: cover }),
+      gameImages: {
+        '1': 'https://picsum.photos/600/337',
+      },
+      addGameImage: (key: string, image: string) =>
+        set(state => ({
+          gameImages: { ...state.gameImages, [key]: image },
+        })),
+      removeGameImage: (key: string, image: string) =>
+        set(state => ({
+          gameImages: { ...state.gameImages, [key]: '' },
+        })),
+      gamePrice: 9999,
+      setGamePrice: (price: number) => set({ gamePrice: price }),
+      gameDescription:
+        'Lorem impsun dolor sit amet consectetur adipisicing elit. Quisquam, quod.',
+      setGameDescription: (description: string) =>
+        set({ gameDescription: description }),
+      gameReview: {
+        recent: { type: 'none', count: 0 },
+        all: { type: 'de', count: 0 },
+      },
+      setGameReview: (type: string, review: { type: string; count: number }) =>
+        set(state => ({
+          gameReview: { ...state.gameReview, [type]: review },
+        })),
+      gameDate: '',
+      setGameDate: (date: Date | string) => set({ gameDate: date }),
+      gameDeveloper: 'Arkane Studios',
+      setGameDeveloper: (developer: string) =>
+        set({ gameDeveloper: developer }),
+      gamePublisher: 'Bethesda Softworks',
+      setGamePublisher: (publisher: string) =>
+        set({ gamePublisher: publisher }),
+      gamePlatforms: [true, false, false],
+      setGamePlatforms: (platform: Array<boolean>) =>
+        set({ gamePlatforms: platform }),
+      gameFeatures: new Set(['achievements']),
+      addGameFeatures: (feature: string) =>
+        set(state => ({ gameFeatures: state.gameFeatures.add(feature) })),
+      removeGameFeatures: (feature: string) =>
+        set(state => {
+          const newFeatures = new Set(state.gameFeatures)
+          newFeatures.delete(feature)
+          return { gameFeatures: newFeatures }
+        }),
+      gameTags: new Set(['Action']),
+      addGameTags: (tag: string) =>
+        set(state => ({ gameTags: state.gameTags.add(tag) })),
+      removeGameTags: (tag: string) =>
+        set(state => {
+          const newTags = new Set(state.gameTags)
+          newTags.delete(tag)
+          return { gameTags: newTags }
+        }),
     }),
-  gameTags: new Set(['Action']),
-  addGameTags: (tag: string) =>
-    set(state => ({ gameTags: state.gameTags.add(tag) })),
-  removeGameTags: (tag: string) =>
-    set(state => {
-      const newTags = new Set(state.gameTags)
-      newTags.delete(tag)
-      return { gameTags: newTags }
-    }),
-}))
+    {
+      name: 'game-data',
+      serialize: data => {
+        return JSON.stringify({
+          ...data,
+          state: {
+            ...data.state,
+            gameTags: Array.from(data.state.gameTags as Set<string>),
+            gameFeatures: Array.from(data.state.gameFeatures as Set<string>),
+            gameDate:
+              data.state.gameDate instanceof Date
+                ? data.state.gameDate.toISOString()
+                : data.state.gameDate,
+          },
+        })
+      },
+      deserialize: data => {
+        const myState = JSON.parse(data)
+        myState.state.gameTags = new Set(myState.state.gameTags)
+        myState.state.gameFeatures = new Set(myState.state.gameFeatures)
+        myState.state.gameDate =
+          myState.state.gameDate == '' ? '' : new Date(myState.state.gameDate)
+        return myState
+      },
+      getStorage: () => localStorage,
+    },
+  ),
+)

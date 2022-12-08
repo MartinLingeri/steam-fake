@@ -15,6 +15,8 @@ export default function GameBanner() {
         borderRadius='0'
         paddingBottom='32px'
         accept='image/png, image/jpeg, image/jpg'
+        overflow="hidden"
+        textOverflow="ellipsis"
       />
     </>
   )

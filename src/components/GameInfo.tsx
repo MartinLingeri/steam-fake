@@ -18,6 +18,7 @@ export default function GameInfo() {
     gamePublisher,
     gameDate,
     gameImages,
+    gameCover,
     gameReview,
     gameTags,
   } = useGlobalStore()
@@ -110,9 +111,10 @@ export default function GameInfo() {
       </Box>
       <Stack zIndex='100' width='324px'>
         <Image
-          src='https://picsum.photos/324/151'
+          src={gameCover}
           width='324px'
           height='151px'
+          objectFit="cover"
         ></Image>
         <Text
           overflow='hidden'
