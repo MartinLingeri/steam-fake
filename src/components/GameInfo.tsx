@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { useGlobalStore } from '../store'
 
 import GameBackgroundShadow from '../assets/game_page_background_shadow.png'
-import IconGameHighLightVide from '../assets/ico_game_highlight_video.png'
+import IconGameHighLightVideo from '../assets/ico_game_highlight_video.png'
 import ImageSlider from './ImageSlider'
 
 import { reviewType } from './reviewType'
@@ -61,46 +61,62 @@ export default function GameInfo() {
     >
       <Box display='flex' flexDirection='column' zIndex='100' gap='6px'>
         <Image
-          src={Object.values(gameImages)[selectedImageIndex]}
+          src={Object.values(gameImages)[selectedImageIndex].thumbnail}
           width='600px'
           height='337px'
           cursor='pointer'
           transition='all 0.3s ease-in-out'
           objectFit='cover'
-        ></Image>
+        />
         <Box display='flex' flexDirection='row' gap='6px'>
-          {Object.values(gameImages).map((thumbnail, index) => (
-            <Box
-              key={index}
-              position='relative'
-              display='flex'
-              alignItems='center'
-              justifyContent='center'
-              outline={selectedImageIndex === index ? '2px solid #c6d4df' : ''}
-              _before={
-                selectedImageIndex === index
-                  ? {
-                      content: '""',
-                      position: 'absolute',
-                      clipPath: 'polygon(50% 50%, 0% 100%, 100% 100%)',
-                      top: '-26px',
-                      width: '25%',
-                      height: '40%',
-                      background: '#c6d4df',
-                    }
-                  : {}
-              }
-              cursor='pointer'
-              onClick={() => setSeletedImageIndex(index)}
-            >
-              <Image
-                src={thumbnail}
-                width='115px'
-                height='65px'
-                objectFit='cover'
-              />
-            </Box>
-          ))}
+          {Object.values(gameImages).map((thumbnail, index) => {
+            return (
+              thumbnail.thumbnail && (
+                <Box
+                  key={index}
+                  position='relative'
+                  display='flex'
+                  alignItems='center'
+                  justifyContent='center'
+                  outline={
+                    selectedImageIndex === index ? '2px solid #c6d4df' : ''
+                  }
+                  _before={
+                    selectedImageIndex === index
+                      ? {
+                          content: '""',
+                          position: 'absolute',
+                          clipPath: 'polygon(50% 50%, 0% 100%, 100% 100%)',
+                          top: '-26px',
+                          width: '25%',
+                          height: '40%',
+                          background: '#c6d4df',
+                        }
+                      : {}
+                  }
+                  cursor='pointer'
+                  onClick={() => setSeletedImageIndex(index)}
+                >
+                  <Image
+                    src={thumbnail.thumbnail}
+                    width='115px'
+                    height='65px'
+                    objectFit='cover'
+                  />
+                  {thumbnail.isVideo && (
+                    <Image
+                      src={IconGameHighLightVideo}
+                      position='absolute'
+                      top='16px'
+                      left='42px'
+                      width='32px'
+                      height='32px'
+                    />
+                  )}
+                </Box>
+              )
+            )
+          })}
         </Box>
         <ImageSlider
           selectNextImage={selectNextImage}
@@ -114,7 +130,7 @@ export default function GameInfo() {
           src={gameCover}
           width='324px'
           height='151px'
-          objectFit="cover"
+          objectFit='cover'
         ></Image>
         <Text
           overflow='hidden'

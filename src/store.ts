@@ -10,13 +10,24 @@ type State = {
   setGameGenre: (genre: string) => void
   gameBanner: string
   setGameBanner: (banner: string) => void
+  removeGameBanner: () => void
   gameBackground: string
   setGameBackground: (background: string) => void
   gameCover: string
   setGameCover: (cover: string) => void
-  gameImages: Object
-  addGameImage: (key: string, image: string) => void
-  removeGameImage: (key: string, image: string) => void
+  gameImages: {
+    1: { thumbnail: string; isVideo: true }
+    2: { thumbnail: string; isVideo: false }
+    3: { thumbnail: string; isVideo: false }
+    4: { thumbnail: string; isVideo: false }
+    5: { thumbnail: string; isVideo: false }
+  }
+  addGameImage: (key: number, image: string) => void
+  removeGameImage: (key: number) => void
+  addAsVideo: (key: number) => void
+  removeAsVideo: (key: number) => void
+  gameCurrency: string
+  setGameCurrency: (currency: string) => void
   gamePrice: number | undefined
   setGamePrice: (price: number) => void
   gameDescription: string
@@ -53,22 +64,63 @@ export const useGlobalStore = create(
       setGameGenre: (genre: string) => set({ gameGenre: genre }),
       gameBanner: 'https://picsum.photos/940/137',
       setGameBanner: (banner: string) => set({ gameBanner: banner }),
+      removeGameBanner: () => set({ gameBanner: '' }),
       gameBackground: 'https://picsum.photos/1438/810',
       setGameBackground: (background: string) =>
         set({ gameBackground: background }),
       gameCover: 'https://picsum.photos/324/151',
       setGameCover: (cover: string) => set({ gameCover: cover }),
       gameImages: {
-        '1': 'https://picsum.photos/600/337',
+        1: { thumbnail: 'https://picsum.photos/600/337', isVideo: true },
+        2: { thumbnail: '', isVideo: false },
+        3: { thumbnail: '', isVideo: false },
+        4: { thumbnail: '', isVideo: false },
+        5: { thumbnail: '', isVideo: false },
       },
-      addGameImage: (key: string, image: string) =>
+      addGameImage: (key: number, image: string) =>
         set(state => ({
-          gameImages: { ...state.gameImages, [key]: image },
+          gameImages: {
+            ...state.gameImages,
+            [key]: {
+              thumbnail: image,
+              isVideo:
+                state.gameImages[key as keyof typeof state.gameImages].isVideo,
+            },
+          },
         })),
-      removeGameImage: (key: string, image: string) =>
+      removeGameImage: (key: number) =>
         set(state => ({
-          gameImages: { ...state.gameImages, [key]: '' },
+          gameImages: {
+            ...state.gameImages,
+            [key]: { thumbnail: '', isVideo: false },
+          },
         })),
+      addAsVideo: (key: number) =>
+        set(state => ({
+          gameImages: {
+            ...state.gameImages,
+            [key]: {
+              thumbnail:
+                state.gameImages[key as keyof typeof state.gameImages]
+                  .thumbnail,
+              isVideo: true,
+            },
+          },
+        })),
+      removeAsVideo: (key: number) =>
+        set(state => ({
+          gameImages: {
+            ...state.gameImages,
+            [key]: {
+              thumbnail:
+                state.gameImages[key as keyof typeof state.gameImages]
+                  .thumbnail,
+              isVideo: false,
+            },
+          },
+        })),
+      gameCurrency: 'USD',
+      setGameCurrency: (currency: string) => set({ gameCurrency: currency }),
       gamePrice: 9999,
       setGamePrice: (price: number) => set({ gamePrice: price }),
       gameDescription:

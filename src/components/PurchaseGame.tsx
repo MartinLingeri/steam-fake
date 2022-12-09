@@ -9,7 +9,7 @@ import IconPlatformLinux from '../assets/icon_platform_linux.png'
 
 export default function PurchaseGame() {
   const { t } = useTranslation()
-  const { gameTitle, gamePrice, gamePlatforms } = useGlobalStore()
+  const { gameTitle, gamePrice, gamePlatforms, gameCurrency } = useGlobalStore()
 
   return (
     <Box
@@ -68,10 +68,9 @@ export default function PurchaseGame() {
         >
           {gamePrice == 0
             ? t('freeToPlay')
-            : gamePrice?.toLocaleString('es-AR', {
+            : gamePrice?.toLocaleString("en-US",{
                 style: 'currency',
-                currency: 'ARS',
-                currencyDisplay: 'code',
+                currency: gameCurrency,
               })}
         </Text>
         <Button

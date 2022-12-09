@@ -28,6 +28,8 @@ import GameTags from './EditComponents/GameTags'
 import GamePlatforms from './EditComponents/GamePlatforms'
 import GamePrice from './EditComponents/GamePrice'
 import GameFeatures from './EditComponents/GameFeatures'
+import GameImageUploadMethod from './EditComponents/GameImageUploadMethod'
+import GameImage from './EditComponents/GameImage'
 
 export default function Edit({
   isOpen,
@@ -75,9 +77,13 @@ export default function Edit({
           <GameLanguage />
           <GameTitle />
           <GameGenre />
+          <GameImageUploadMethod />
           <GameBackgroundImage />
           <GameBanner />
           <GameCover />
+          {Array.apply(null, Array(5)).map((_, i) => (
+            <GameImage key={i} index={i}/>
+          ))}
           <GameDescription />
           <GameRecentReviews />
           <GameAllReviews />

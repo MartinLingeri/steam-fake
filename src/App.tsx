@@ -62,7 +62,7 @@ function App() {
           <Stack width='940px' gap='16px'>
             <StoreNav />
             <Title />
-            <GameBanner />
+            {gameBanner && <GameBanner />}
             <GameInfo />
             <GameFeedbackButtons />
             <PageContent />

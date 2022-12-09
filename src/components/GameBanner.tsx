@@ -7,6 +7,7 @@ export default function GameBanner() {
   return (
     <Image
       src={gameBanner}
+      objectFit='cover'
       cursor='pointer'
       width='940px'
       height='137px'
