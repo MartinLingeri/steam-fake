@@ -16,6 +16,6 @@ Esta pagina esta hecha con [React](https://es.reactjs.org/), [TypeScript](https:
 
 ## Imagenes de ejemplo
 ![imagen de ejemplo 1](https://github.com/MartinLingeri/steam-fake/blob/main/bloodborne_preview_image.png)
-![imagen de ejemplo 2](https://github.com/MartinLingeri/steam-fake/blob/main/preview_image_2.png)
-![imagen de ejemplo 3](https://github.com/MartinLingeri/steam-fake/blob/main/preview_image_3.png)
+<img src="https://github.com/MartinLingeri/steam-fake/blob/main/preview_image_2.png" width="400px"/>
+<img src="https://github.com/MartinLingeri/steam-fake/blob/main/preview_image_3.png" width="400px"/>
 
