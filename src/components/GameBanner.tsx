@@ -9,7 +9,7 @@ export default function GameBanner() {
       src={gameBanner}
       objectFit='cover'
       cursor='pointer'
-      width='940px'
+      width={{ base: '97.5%', md: '940px' }}
       height='137px'
       margin='-4px 0 !important'
       transform='scale(1.00)'

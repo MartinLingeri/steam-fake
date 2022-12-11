@@ -30,6 +30,7 @@ function App() {
         <Stack
           background='primary.600'
           height='100%'
+          width='100vw'
           minH='100vh'
           alignItems='center'
           position='relative'
@@ -59,7 +60,11 @@ function App() {
             backgroundPosition: 'top',
           }}
         >
-          <Stack width='940px' gap='16px'>
+          <Stack
+            width={{ base: '100%', md: '940px' }}
+            gap={{ base: '8px', md: '16px' }}
+            alignItems={{ base: 'center', md: 'stretch' }}
+          >
             <StoreNav />
             <Title />
             {gameBanner && <GameBanner />}

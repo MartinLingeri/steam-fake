@@ -9,7 +9,13 @@ export default function Title() {
   const breadcrumbs = [t('allGames'), gameGenre, gameTitle]
 
   return (
-    <Stack position='relative' zIndex='100'>
+    <Stack
+      display={{ base: 'none', md: 'flex' }}
+      position='relative'
+      zIndex='100'
+      alignSelf='self-start'
+      width='100%'
+    >
       <Stack direction='row'>
         {breadcrumbs.map((breadcrumb, index) => (
           <Stack

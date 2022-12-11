@@ -17,18 +17,24 @@ export default function StoreNav() {
 
   return (
     <Stack
-      direction='row'
+      direction={{ base: 'column', md: 'row' }}
       fontFamily='storeNav.font'
       background='storeNav.bg'
-      width='940px'
-      height='34px'
+      width={{ base: '100%', md: '940px' }}
+      height={{ base: '100%', md: '34px' }}
       alignItems='center'
       justifyContent='space-between'
-      marginTop='32px'
+      marginTop={{ base: '0', md: '32px' }}
       boxShadow='storeNav.shadow'
       zIndex='100'
     >
-      <Stack direction='row' color='text' whiteSpace='nowrap'>
+      <Stack
+        width={{ base: '100%', md: 'unset' }}
+        direction={{ base: 'column', md: 'row' }}
+        alignItems='center'
+        color='text'
+        whiteSpace='nowrap'
+      >
         {categories.map((category, index) => (
           <Box
             key={index}
@@ -37,7 +43,7 @@ export default function StoreNav() {
             height='34px'
             display='flex'
             alignItems='center'
-            justifyContent='center'
+            justifyContent={{ base: 'flex-start', md: 'center' }}
             padding='0 15px'
             margin='0 !important'
             _hover={{ background: 'storeNav.hover' }}
@@ -45,8 +51,9 @@ export default function StoreNav() {
             <Heading
               display='inline-block'
               fontSize='13px'
-              fontWeight='600'
+              fontWeight={{ base: '800', md: '600' }}
               textShadow='0px 2px 3px rgb(0 0 0 / 30%)'
+              textAlign={{ base: 'left', md: 'center' }}
             >
               {category}
             </Heading>
@@ -54,32 +61,38 @@ export default function StoreNav() {
         ))}
       </Stack>
       <Stack
+        width={{ base: '100%', md: 'unset' }}
         direction='row'
         alignItems='center'
         position='relative'
         marginRight='4px !important'
       >
         <Input
-          background='storeNav.inputBg'
+          background={{
+            base: 'rgba(96, 133, 155, 0.979)',
+            md: 'storeNav.inputBg',
+          }}
           variant='unstyled'
-          borderRadius='2px'
+          margin={{ base: '4px 8px', md: '0' }}
+          borderRadius={{ base: '5px', md: '2px' }}
           paddingInline='14px'
-          width='202px'
-          height='29px'
-          fontSize='14px'
+          width={{ base: '100%', md: '202px' }}
+          height='30px'
+          fontSize={{ base: '16px', md: '14px' }}
           fontStyle='italic'
           placeholder={t('nav.searchPlaceholder')!}
+          boxShadow={{ base: 'inset 0 0 4px #000000', md: 'none' }}
           _placeholder={{
             color: '#0e1c25',
             textTransform: 'lowercase',
-            fontStyle:'italic',
+            fontStyle: 'italic',
           }}
           _hover={{ border: '1px solid #54a5d4' }}
         ></Input>
         <Image
           src={SearchIcon}
           position='absolute'
-          right='0'
+          right={{ base: '11px', md: '0' }}
           zIndex='1'
           alt='Search icon'
           width='25px'

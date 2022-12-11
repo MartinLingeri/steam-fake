@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Eslint y prettier
+.eslintignore
+.eslintrc.js
+.prettierignore
+.prettierrc
