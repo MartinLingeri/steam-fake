@@ -297,7 +297,11 @@ export default function GameInfo() {
                   lineHeight='16px'
                   minWidth={{ base: 'unset', md: '94px' }}
                 >
-                  {isMobile ? t('allReviewsMobile') : t('allReviews')}
+                  {isMobile
+                    ? gameReview.all.type != 'de'
+                      ? t('allReviewsMobile')
+                      : ''
+                    : t('allReviews')}
                 </Heading>
                 {gameReview.all.type == 'de' ? (
                   <Heading
