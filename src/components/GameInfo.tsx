@@ -449,7 +449,7 @@ export default function GameInfo() {
           <Box
             display='flex'
             flexDirection='column'
-            margin='0 !important'
+            margin={{ base: '8px 0 0 0 !important', md: '0 !important' }}
             order={{ base: '5', md: 'unset' }}
           >
             <Heading
@@ -462,7 +462,7 @@ export default function GameInfo() {
             >
               {isMobile ? t('tagsMobile') : t('tags')}
             </Heading>
-            <Box display='flex' margin={{ base: '8px 0 16px 0', md: '0' }}>
+            <Box display='flex' margin={{ base: '8px 0', md: '0' }}>
               {Array.from(gameTags).map(tag => (
                 <Box
                   key={tag}
