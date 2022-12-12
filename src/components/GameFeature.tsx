@@ -12,7 +12,7 @@ export default function GameFeature({ feature }: { feature: string }) {
       display='flex'
       flexDirection='row'
       width={{ base: '100%', md: '276px' }}
-      height='26px'
+      height={{ base: '32px', md: '26px' }}
       cursor='pointer'
       zIndex='100'
     >

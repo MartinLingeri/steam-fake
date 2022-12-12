@@ -1,5 +1,13 @@
 import { useState } from 'react'
-import { Box, Heading, Image, Link, Stack, Text } from '@chakra-ui/react'
+import {
+  Box,
+  Heading,
+  Image,
+  Link,
+  Stack,
+  Text,
+  useMediaQuery,
+} from '@chakra-ui/react'
 
 import { useTranslation } from 'react-i18next'
 import { useGlobalStore } from '../store'
@@ -13,6 +21,7 @@ import { reviewType } from './reviewType'
 export default function GameInfo() {
   const { t, i18n } = useTranslation()
   const {
+    gameBanner,
     gameTitle,
     gameDescription,
     gameDeveloper,
@@ -24,6 +33,8 @@ export default function GameInfo() {
     gameTags,
   } = useGlobalStore()
   const [selectedImageIndex, setSeletedImageIndex] = useState(0)
+
+  const [isMobile] = useMediaQuery('(max-width: 500px)')
 
   function selectNextImage() {
     if (selectedImageIndex === Object.keys(gameImages).length - 1) {
@@ -49,7 +60,11 @@ export default function GameInfo() {
       width={{ base: '100%', md: '940px' }}
       position='relative'
       paddingBottom='1px'
-      marginBottom={{ base: '16px !important', md: '0' }}
+      marginBottom={{ base: '16px !important', md: '0 !important' }}
+      marginTop={{
+        base: '0 !important',
+        md: '8px !important',
+      }}
       _before={{
         base: {},
         md: {
@@ -79,7 +94,6 @@ export default function GameInfo() {
           width={{ base: '100%', md: '600px' }}
           height={{ base: '215px', md: '337px' }}
           cursor='pointer'
-          transition='all 0.3s ease-in-out'
           objectFit='cover'
           paddingInline={{ base: '8px', md: '0' }}
         />
@@ -151,6 +165,10 @@ export default function GameInfo() {
         zIndex='100'
         width={{ base: '100%', md: '324px' }}
         order={{ base: '1', md: 'unset' }}
+        marginTop={{
+          base: gameBanner ? '8px !important' : '0 !important',
+          md: '8px !important',
+        }}
       >
         <Image
           src={gameCover}
@@ -169,6 +187,7 @@ export default function GameInfo() {
             color='white'
             fontFamily='Motiva Sans'
             fontWeight='bold'
+            marginBottom='8px'
           >
             {gameTitle}
           </Heading>
@@ -184,94 +203,103 @@ export default function GameInfo() {
             fontSize={{ base: '14px', md: '13px' }}
             lineHeight='18px'
             fontFamily={{ base: 'Motiva Sans', md: 'Arial' }}
-            order='4'
+            order={{ base: '4', md: 'unset' }}
           >
             {gameDescription}
           </Text>
           <Box
             marginTop='8px !important'
             marginBottom='4px !important'
-            order='6'
+            order={{ base: '6', md: 'unset' }}
           >
-            {gameReview.recent.type != 'none' && (
-              <Stack direction='row' alignItems='center'>
+            <Heading
+              display={{ base: 'block', md: 'none' }}
+              textTransform='uppercase'
+              color='textGray'
+              fontSize='16px'
+              fontWeight='400'
+              fontFamily='Motiva Sans'
+              marginBottom='5px'
+            >
+              {t('reviews')}
+            </Heading>
+            <Box
+              display='flex'
+              flexDirection={{ base: 'column-reverse', md: 'column' }}
+              borderRadius={{ base: '5px', md: '0' }}
+              backgroundColor={{ base: '#1B2838', md: 'unset' }}
+              padding={{ base: '8px', md: '0' }}
+            >
+              {gameReview.recent.type != 'none' && (
+                <Stack
+                  direction={{ base: 'row-reverse', md: 'row' }}
+                  alignItems='center'
+                  justifyContent={{ base: 'flex-end', md: 'flex-start' }}
+                >
+                  <Heading
+                    textTransform='uppercase'
+                    color='textDarkGray'
+                    fontSize={{ base: '16px', md: '10px' }}
+                    fontWeight='400'
+                    textOverflow='ellipsis'
+                    lineHeight='16px'
+                    fontFamily={{ base: 'Motiva Sans', md: 'Arial' }}
+                    minWidth={{ base: 'unset', md: '94px' }}
+                  >
+                    {isMobile ? t('recentReviewsMobile') : t('recentReviews')}
+                  </Heading>
+                  <Link>
+                    <Heading
+                      color={
+                        reviewType[
+                          gameReview.recent.type as keyof typeof reviewType
+                        ].color
+                      }
+                      fontSize={{ base: '16px', md: '12px' }}
+                      fontWeight='400'
+                      fontFamily={{ base: 'Motiva Sans', md: 'Arial' }}
+                      lineHeight='16px'
+                      whiteSpace='nowrap'
+                      display='inline-block'
+                    >
+                      {t(`reviewType.${gameReview.recent.type}`)}
+                    </Heading>{' '}
+                    <Heading
+                      color='textDarkGray'
+                      fontSize={{ base: '16px', md: '12px' }}
+                      fontWeight='400'
+                      fontFamily={{ base: 'Motiva Sans', md: 'Arial' }}
+                      lineHeight='16px'
+                      whiteSpace='nowrap'
+                      display='inline-block'
+                    >
+                      (
+                      {Intl.NumberFormat(i18n.language).format(
+                        gameReview.recent.count,
+                      )}
+                      )
+                    </Heading>
+                  </Link>
+                </Stack>
+              )}
+              <Stack
+                direction={{ base: 'row-reverse', md: 'row' }}
+                alignItems='center'
+                justifyContent={{ base: 'flex-end', md: 'flex-start' }}
+              >
                 <Heading
                   textTransform='uppercase'
                   color='textDarkGray'
                   fontSize={{ base: '16px', md: '10px' }}
                   fontWeight='400'
+                  fontFamily={{ base: 'Motiva Sans', md: 'Arial' }}
                   textOverflow='ellipsis'
                   lineHeight='16px'
-                  fontFamily={{ base: 'Motiva Sans', md: 'Arial' }}
-                  minWidth='94px'
+                  minWidth={{ base: 'unset', md: '94px' }}
                 >
-                  {t('recentReviews')}:
+                  {isMobile ? t('allReviewsMobile') : t('allReviews')}
                 </Heading>
-                <Link>
-                  <Heading
-                    color={
-                      reviewType[
-                        gameReview.recent.type as keyof typeof reviewType
-                      ].color
-                    }
-                    fontSize={{ base: '16px', md: '12px' }}
-                    fontWeight='400'
-                    fontFamily={{ base: 'Motiva Sans', md: 'Arial' }}
-                    lineHeight='16px'
-                    whiteSpace='nowrap'
-                    display='inline-block'
-                  >
-                    {t(`reviewType.${gameReview.recent.type}`)}
-                  </Heading>{' '}
-                  <Heading
-                    color='textDarkGray'
-                    fontSize={{ base: '16px', md: '12px' }}
-                    fontWeight='400'
-                    fontFamily={{ base: 'Motiva Sans', md: 'Arial' }}
-                    lineHeight='16px'
-                    whiteSpace='nowrap'
-                    display='inline-block'
-                  >
-                    (
-                    {Intl.NumberFormat(i18n.language).format(
-                      gameReview.recent.count,
-                    )}
-                    )
-                  </Heading>
-                </Link>
-              </Stack>
-            )}
-            <Stack direction='row' alignItems='center'>
-              <Heading
-                textTransform='uppercase'
-                color='textDarkGray'
-                fontSize={{ base: '16px', md: '10px' }}
-                fontWeight='400'
-                fontFamily={{ base: 'Motiva Sans', md: 'Arial' }}
-                textOverflow='ellipsis'
-                lineHeight='16px'
-                minWidth='94px'
-              >
-                {t('allReviews')}:
-              </Heading>
-              {gameReview.all.type == 'de' ? (
-                <Heading
-                  color={
-                    reviewType[gameReview.all.type as keyof typeof reviewType]
-                      .color
-                  }
-                  fontSize={{ base: '16px', md: '12px' }}
-                  fontWeight='400'
-                  fontFamily={{ base: 'Motiva Sans', md: 'Arial' }}
-                  lineHeight='16px'
-                  whiteSpace='nowrap'
-                  display='inline-block'
-                  cursor='pointer'
-                >
-                  {t('reviewType.de')}
-                </Heading>
-              ) : (
-                <Link>
+                {gameReview.all.type == 'de' ? (
                   <Heading
                     color={
                       reviewType[gameReview.all.type as keyof typeof reviewType]
@@ -283,33 +311,56 @@ export default function GameInfo() {
                     lineHeight='16px'
                     whiteSpace='nowrap'
                     display='inline-block'
+                    cursor='pointer'
                   >
-                    {t(`reviewType.${gameReview.all.type}`)}
-                  </Heading>{' '}
-                  <Heading
-                    color='textDarkGray'
-                    fontSize={{ base: '16px', md: '12px' }}
-                    fontWeight='400'
-                    fontFamily={{ base: 'Motiva Sans', md: 'Arial' }}
-                    lineHeight='16px'
-                    whiteSpace='nowrap'
-                    display='inline-block'
-                  >
-                    (
-                    {Intl.NumberFormat(i18n.language).format(
-                      gameReview.all.count,
-                    )}
-                    )
+                    {t('reviewType.de')}
                   </Heading>
-                </Link>
-              )}
-            </Stack>
+                ) : (
+                  <Link>
+                    <Heading
+                      color={
+                        reviewType[
+                          gameReview.all.type as keyof typeof reviewType
+                        ].color
+                      }
+                      fontSize={{ base: '16px', md: '12px' }}
+                      fontWeight='400'
+                      fontFamily={{ base: 'Motiva Sans', md: 'Arial' }}
+                      lineHeight='16px'
+                      whiteSpace='nowrap'
+                      display='inline-block'
+                    >
+                      {t(`reviewType.${gameReview.all.type}`)}
+                    </Heading>{' '}
+                    <Heading
+                      color='textDarkGray'
+                      fontSize={{ base: '16px', md: '12px' }}
+                      fontWeight='400'
+                      fontFamily={{ base: 'Motiva Sans', md: 'Arial' }}
+                      lineHeight='16px'
+                      whiteSpace='nowrap'
+                      display='inline-block'
+                    >
+                      (
+                      {Intl.NumberFormat(i18n.language).format(
+                        gameReview.all.count,
+                      )}
+                      )
+                    </Heading>
+                  </Link>
+                )}
+              </Stack>
+            </Box>
           </Box>
 
-          <Stack direction='row' alignItems='center' order='3'>
+          <Stack
+            direction='row'
+            alignItems='center'
+            order={{ base: '3', md: 'unset' }}
+          >
             <Heading
-              textTransform='uppercase'
-              color='textDarkGray'
+              textTransform={{ base: 'none', md: 'uppercase' }}
+              color={{ base: 'textGray', md: 'textDarkGray' }}
               fontSize={{ base: '16px', md: '10px' }}
               fontWeight='400'
               fontFamily={{ base: 'Motiva Sans', md: 'Arial' }}
@@ -317,13 +368,13 @@ export default function GameInfo() {
               marginBlock='4px !important'
               lineHeight='16px'
               whiteSpace='nowrap'
-              minWidth='94px'
+              minWidth={{ base: '110px', md: '94px' }}
             >
-              {t('releaseDate')}:
+              {isMobile ? t('releaseDateMobile') : t('releaseDate')}
             </Heading>
             <Heading
               textTransform={i18n.language == 'en' ? 'capitalize' : 'uppercase'}
-              color='textGray'
+              color={{ base: 'textPurchasePrice', md: 'textGray' }}
               fontSize={{ base: '16px', md: '12px' }}
               fontWeight='400'
               fontFamily={{ base: 'Motiva Sans', md: 'Arial' }}
@@ -340,18 +391,21 @@ export default function GameInfo() {
                   })}
             </Heading>
           </Stack>
-          <Box marginBlock='8px !important' order='2'>
+          <Box
+            marginBlock={{ base: '0 !important', md: '8px !important' }}
+            order={{ base: '2', md: 'unset' }}
+          >
             <Stack direction='row' alignItems='center' overflow='hidden'>
               <Heading
-                textTransform='uppercase'
-                color='textDarkGray'
+                textTransform={{ base: 'none', md: 'uppercase' }}
+                color={{ base: 'textGray', md: 'textDarkGray' }}
                 fontSize={{ base: '16px', md: '10px' }}
                 fontWeight='400'
                 fontFamily={{ base: 'Motiva Sans', md: 'Arial' }}
                 lineHeight='16px'
-                minWidth='94px'
+                minWidth={{ base: '110px', md: '94px' }}
               >
-                {t('developer')}:
+                {isMobile ? t('developerMobile') : t('developer')}
               </Heading>
               <Link
                 overflow='hidden'
@@ -368,15 +422,15 @@ export default function GameInfo() {
             </Stack>
             <Stack direction='row' alignItems='center' overflow='hidden'>
               <Heading
-                textTransform='uppercase'
-                color='textDarkGray'
+                textTransform={{ base: 'none', md: 'uppercase' }}
+                color={{ base: 'textGray', md: 'textDarkGray' }}
                 fontSize={{ base: '16px', md: '10px' }}
                 fontWeight='400'
                 fontFamily={{ base: 'Motiva Sans', md: 'Arial' }}
                 lineHeight='16px'
-                minWidth='94px'
+                minWidth={{ base: '110px', md: '94px' }}
               >
-                {t('publisher')}:
+                {isMobile ? t('publisherMobile') : t('publisher')}
               </Heading>
               <Link
                 overflow='hidden'
@@ -396,16 +450,17 @@ export default function GameInfo() {
             display='flex'
             flexDirection='column'
             margin='0 !important'
-            order='5'
+            order={{ base: '5', md: 'unset' }}
           >
             <Heading
-              color='textDarkGray'
+              textTransform={{ base: 'uppercase', md: 'none' }}
+              color={{ base: 'textGray', md: 'textDarkGray' }}
               fontSize={{ base: '16px', md: '12px' }}
               fontWeight='normal'
               fontFamily={{ base: 'Motiva Sans', md: 'Arial' }}
               lineHeight='19px'
             >
-              {t('tags')}:
+              {isMobile ? t('tagsMobile') : t('tags')}
             </Heading>
             <Box display='flex' margin={{ base: '8px 0 16px 0', md: '0' }}>
               {Array.from(gameTags).map(tag => (
@@ -413,16 +468,17 @@ export default function GameInfo() {
                   key={tag}
                   display='inline-block'
                   height={{ base: '26px', md: '19px' }}
-                  fontSize={{ base: '16px', md: '11px' }}
                   color='primary.100'
                   borderRadius='2px'
-                  background='title.buttonBg'
+                  background={{ base: '#1B2838', md: 'title.buttonBg' }}
                   fontWeight='400'
                   cursor='pointer'
                   paddingInline='8px'
-                  paddingBlock='1px'
+                  paddingBlock={{ base: '3px', md: '1px' }}
                   marginRight='2px'
                   textAlign='center'
+                  fontSize={{ base: '14px', md: '11px' }}
+                  fontFamily={{ base: 'Motiva Sans', md: 'Arial' }}
                   _hover={{
                     background: 'lightHover',
                     color: 'text',
@@ -437,11 +493,11 @@ export default function GameInfo() {
                 fontSize={{ base: '16px', md: '11px' }}
                 color='primary.100'
                 borderRadius='2px'
-                background='title.buttonBg'
+                background={{ base: '#1B2838', md: 'title.buttonBg' }}
                 fontWeight='400'
                 cursor='pointer'
                 paddingInline='8px'
-                paddingBlock='1px'
+                paddingBlock={{ base: '3px', md: '1px' }}
                 marginRight='2px'
                 textAlign='center'
                 _hover={{
