@@ -11,7 +11,7 @@ export default function GameFeature({ feature }: { feature: string }) {
       role='group'
       display='flex'
       flexDirection='row'
-      width='276px'
+      width={{ base: '100%', md: '276px' }}
       height='26px'
       cursor='pointer'
       zIndex='100'

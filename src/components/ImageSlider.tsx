@@ -17,7 +17,7 @@ export default function ImageSlider({
 }: Props) {
   return (
     <Box
-      display='flex'
+      display={{ base: 'none', md: 'flex' }}
       flexDirection='row'
       alignItems='center'
       width='600px'

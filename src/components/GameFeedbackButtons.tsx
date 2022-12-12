@@ -9,7 +9,7 @@ export default function GameFeedbackButtons() {
   const { t } = useTranslation()
   return (
     <Stack
-      direction='row'
+      direction={{ base: 'column', md: 'row' }}
       alignItems='center'
       justifyContent='space-between'
       zIndex='100'
@@ -86,7 +86,7 @@ export default function GameFeedbackButtons() {
         ></Box>
       </Box>
       <Button
-        display='flex'
+        display={{ base: 'none', md: 'flex' }}
         flexDirection='row'
         alignItems='center'
         padding='16px'

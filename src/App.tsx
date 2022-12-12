@@ -28,41 +28,47 @@ function App() {
       <Box overflow='hidden'>
         <Navbar onOpen={onOpen} btnRef={btnRef} />
         <Stack
-          background='primary.600'
+          background={{ base: 'primary.800', md: 'primary.600' }}
           height='100%'
           width='100vw'
           minH='100vh'
           alignItems='center'
           position='relative'
-          boxShadow='0 0 100px 50px #1A2938 inset'
+          boxShadow={{ base: 'none', md: '0 0 100px 50px #1A2938 inset' }}
           _before={{
-            content: '""',
-            position: 'absolute',
-            width: '100%',
-            height: '800px',
-            backgroundImage: `url(${gameBackground})`,
-            backgroundPosition: 'center top',
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: 'cover',
-            filter:
-              'sepia(100%) hue-rotate(190deg) saturate(400%) brightness(20%) opacity(30%)',
-            boxShadow: 'inset 0px -60px 50px 100px #78bbff',
-            zIndex: 0,
+            base: {},
+            md: {
+              content: '""',
+              position: 'absolute',
+              width: '100%',
+              height: '800px',
+              backgroundImage: `url(${gameBackground})`,
+              backgroundPosition: 'center top',
+              backgroundRepeat: 'no-repeat',
+              backgroundSize: 'cover',
+              filter:
+                'sepia(100%) hue-rotate(190deg) saturate(400%) brightness(20%) opacity(30%)',
+              boxShadow: 'inset 0px -60px 50px 100px #78bbff',
+              zIndex: 0,
+            },
           }}
           _after={{
-            content: '""',
-            position: 'absolute',
-            top: gameBanner ? '564px' : '418px',
-            width: '100%',
-            height: '100%',
-            backgroundImage: `url(${GameBackgroundShadow})`,
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'top',
+            base: {},
+            md: {
+              content: '""',
+              position: 'absolute',
+              top: gameBanner ? '564px' : '418px',
+              width: '100%',
+              height: '100%',
+              backgroundImage: `url(${GameBackgroundShadow})`,
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: 'top',
+            },
           }}
         >
           <Stack
             width={{ base: '100%', md: '940px' }}
-            gap={{ base: '8px', md: '16px' }}
+            gap={{ md: '16px' }}
             alignItems={{ base: 'center', md: 'stretch' }}
           >
             <StoreNav />

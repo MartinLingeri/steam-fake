@@ -16,7 +16,7 @@ export default function PurchaseGame() {
       background='linear-gradient( -60deg, rgba(226,244,255,0.3) 5%,rgba(84, 107, 115, 0.3) 95%)'
       borderRadius='4px'
       padding='16px'
-      width='616px'
+      width={{ base: '100%', md: '616px' }}
       height='72px'
       zIndex='100'
       position='relative'
@@ -68,7 +68,7 @@ export default function PurchaseGame() {
         >
           {gamePrice == 0
             ? t('freeToPlay')
-            : gamePrice?.toLocaleString("en-US",{
+            : gamePrice?.toLocaleString('en-US', {
                 style: 'currency',
                 currency: gameCurrency,
               })}

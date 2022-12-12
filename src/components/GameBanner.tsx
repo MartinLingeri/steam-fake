@@ -9,9 +9,10 @@ export default function GameBanner() {
       src={gameBanner}
       objectFit='cover'
       cursor='pointer'
-      width={{ base: '97.5%', md: '940px' }}
+      width={{ base: '100%', md: '940px' }}
+      paddingInline={{ base: '8px', md: '0' }}
       height='137px'
-      margin='-4px 0 !important'
+      margin={{ base: '0', md: '-4px 0 !important' }}
       transform='scale(1.00)'
       filter='saturate(0.85)'
       transition='transform.21s ease-in-out, filter .21s ease-in-out'

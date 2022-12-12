@@ -77,7 +77,7 @@ export default function StoreNav() {
           borderRadius={{ base: '5px', md: '2px' }}
           paddingInline='14px'
           width={{ base: '100%', md: '202px' }}
-          height='30px'
+          height={{ base: '30px', md: '28px' }}
           fontSize={{ base: '16px', md: '14px' }}
           fontStyle='italic'
           placeholder={t('nav.searchPlaceholder')!}
