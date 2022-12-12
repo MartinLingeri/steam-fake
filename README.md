@@ -15,8 +15,14 @@ En la pagina se pueden editar el genero, el titulo, la descripcion, el precio, l
 Esta pagina esta hecha con [React](https://es.reactjs.org/), [TypeScript](https://www.typescriptlang.org/), [Chakra UI](https://chakra-ui.com/) y [React-i18next](https://react.i18next.com).
 
 ## 👁 Imagenes de ejemplo
+### Desktop
+
 ![imagen de ejemplo 1](https://github.com/MartinLingeri/steam-fake/blob/main/bloodborne_preview_image.png)
 <img src="https://github.com/MartinLingeri/steam-fake/blob/main/preview_image_2.png" width="400px"/>
 <img src="https://github.com/MartinLingeri/steam-fake/blob/main/preview_image_3.png" width="400px"/>
+
+### Mobile
+|
 <img src="https://github.com/MartinLingeri/steam-fake/blob/main/preview_image_4.png" width="400px"/>
 <img src="https://github.com/MartinLingeri/steam-fake/blob/main/preview_image_5.png" width="400px"/>
+|
