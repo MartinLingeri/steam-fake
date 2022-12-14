@@ -147,6 +147,7 @@ export default function GameFeedbackButtons() {
         flexDirection='row'
         alignItems='center'
         padding='16px'
+        minWidth='fit-content'
         height='30px'
         fontSize='15px'
         lineHeight='30px'
