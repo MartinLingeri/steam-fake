@@ -167,7 +167,7 @@ export default function GameInfo() {
         order={{ base: '1', md: 'unset' }}
         marginTop={{
           base: gameBanner ? '8px !important' : '0 !important',
-          md: '8px !important',
+          md: '0 !important',
         }}
       >
         <Image

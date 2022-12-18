@@ -27,7 +27,8 @@ export default function GameFeedbackButtons() {
         width='100%'
       >
         <Button
-          padding='16px 24px'
+          padding='16px'
+          minWidth='fit-content'
           width={{ base: '100%', md: 'auto' }}
           height='30px'
           fontSize='15px'
