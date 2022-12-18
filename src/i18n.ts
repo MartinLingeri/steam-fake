@@ -55,6 +55,7 @@ i18next
           gamePublisher: 'Game Publisher',
           gamePlatforms: 'Game Platforms',
           gameFeatures: 'Game Features',
+          featuresMobile: 'Features',
           features: {
             singlePlayer: 'Single Player',
             multiplayer: 'Multiplayer',
@@ -147,6 +148,7 @@ i18next
           gamePublisher: 'Editor del juego',
           gamePlatforms: 'Plataformas del juego',
           gameFeatures: 'Caracteristicas del juego',
+          featuresMobile: 'Caracteristicas',
           features: {
             singlePlayer: 'Juego para un jugador',
             multiplayer: 'Juego para varios jugadores',
@@ -239,6 +241,7 @@ i18next
           gamePublisher: 'Distribuidora do jogo',
           gamePlatforms: 'Plataformas do jogo',
           gameFeatures: 'Funcionalidades do jogo',
+          featuresMobile: 'Funcionalidades',
           features: {
             singlePlayer: ' Um jogador',
             multiplayer: 'Multijogador multiplataforma',

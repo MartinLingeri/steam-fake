@@ -1,10 +1,13 @@
 import { Box, Heading } from '@chakra-ui/react'
+import { useTranslation } from 'react-i18next'
 
 import { useGlobalStore } from '../store'
 import GameFeature from './GameFeature'
 
 export default function CategoryBlock() {
   const { gameFeatures } = useGlobalStore()
+  const { t } = useTranslation()
+
   return (
     <Box
       padding={{ base: '0', md: '16px' }}
@@ -23,7 +26,7 @@ export default function CategoryBlock() {
         fontFamily='Motiva Sans'
         marginBottom='5px'
       >
-        Features
+        {t('featuresMobile')}
       </Heading>
       <Box display='flex' flexDirection='column' gap='2px'>
         {Array.from(gameFeatures).map(key => (
